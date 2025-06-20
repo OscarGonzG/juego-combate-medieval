@@ -66,7 +66,7 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 		int despAdornoY = (altoY - piel.altoY()) / 2;
 		
 		adornoAnhade(piel, despAdornoX, despAdornoY);
-		estado = Estado.PARADO_DERECHA;
+		estado = new Estado(Direccion.DERECHA, Accion.PARADO);
 		asignaFactorGravedad(0);
 		
 		piel.cambiaAnimacion(estado);
@@ -95,7 +95,7 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 		int despAdornoY = (-piel.altoY() + altoY) / 2;
 
 		adornoAnhade(piel, despAdornoX, despAdornoY);
-		estado = Estado.PARADO_DERECHA;
+		estado = new Estado(Direccion.DERECHA, Accion.PARADO);
 		asignaFactorGravedad(0);
 
 		piel.cambiaAnimacion(estado);
@@ -106,7 +106,7 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 	 * @return
 	 */
 	public Direccion getDireccion() {
-		return estado.direccion();
+		return estado.direccionPrimaria();
 	}
 	
 	/**
@@ -123,10 +123,25 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 	 * @return true si ha podido cambiar de direccion, false en caso contrario.
 	 */
 	public boolean cambiaDireccion(Direccion d) {
-		if (d.equals(estado.direccion()) || estaMuerto()) {
+		if (d.equals(estado.direccionPrimaria()) || estaMuerto()) {
 			return false;
 		}
 		cambiaEstado(new Estado(d, estado.accion()));
+		return true;
+	}
+	
+	/**
+	 * Hace que el personaje mire a la direccion indicada.
+	 * @param primaria la direccion primaria a la que pasa a mirar.
+	 * @param secundaria la direccion secundaria a la que pasa a mirar.
+	 * @return true si ha podido cambiar de direccion, false en caso contrario.
+	 */
+	public boolean cambiaDireccion(Direccion primaria, Direccion secundaria) {
+		if ((primaria.equals(estado.direccionPrimaria()) && secundaria.equals(estado.direccionSecundaria())) || estaMuerto()) {
+			return false;
+		}
+
+		cambiaEstado(new Estado(primaria, secundaria, estado.accion()));
 		return true;
 	}
 	
@@ -139,8 +154,8 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 		if (a.equals(estado.accion()) || ataqueEnCurso() || estaMuerto()) {
 			return false;
 		}
-		
-		cambiaEstado(new Estado(estado.direccion(), a));
+
+		cambiaEstado(new Estado(estado.direccionPrimaria(), estado.direccionSecundaria(), a));
 		if (a.equals(Accion.ATACANDO)) {
 			temporizadorAtaque.iniciaCuenta();
 		}
@@ -178,7 +193,15 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 
 				Direccion direccionPrincipal = Math.abs(velX) >= Math.abs(velY) ?
 								direccionX : direccionY;
-				cambiaDireccion(direccionPrincipal);
+				Direccion direccionSecundaria;
+				if (Math.abs(velX) >= Math.abs(velY)) {
+					direccionPrincipal = direccionX;
+					direccionSecundaria = direccionY;
+				} else {
+					direccionPrincipal = direccionY;
+					direccionSecundaria = direccionX;
+				}
+				cambiaDireccion(direccionPrincipal, direccionSecundaria);
 			}
 		}
 	}

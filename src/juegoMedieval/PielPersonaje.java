@@ -1,8 +1,7 @@
 package juegoMedieval;
 
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.EnumMap;
 
 import j2d.JObjeto;
 import j2d.JObjetoIcono;
@@ -11,6 +10,8 @@ import j2d.utils.Animacion;
 import j2d.utils.Diapositiva;
 import j2d.utils.ImagenesUtils;
 import j2d.utils.Sonido;
+import juegoMedieval.Estado.Accion;
+import juegoMedieval.Estado.Direccion;
 
 /**
  * Representa la "piel" de un personaje, es decir, su parte visible. Se encarga
@@ -24,7 +25,7 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	
 	public static final Animacion ANIMACION_MUERTE = cargaAnimacionMuerte();
 	
-	private Map<Estado, Animacion> animacionesAccion = new HashMap<Estado, Animacion>();
+	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animaciones = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
 	
 	private static final int DURACION_FRAME_MS = 100;
 	private static final int FRAMES_ANIMACION_ACCION = 6;
@@ -93,22 +94,25 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 			atacandoIzquierda[i] = new Diapositiva(ImagenesUtils.espejoIzqDer(atacandoDerecha[i].imagen), 1, DURACION_FRAME_MS, sonidoAtaque);
 		}
 		// PARADO
-		animacionesAccion.put(Estado.PARADO_DERECHA, new Animacion(true, paradoDerecha));
-		animacionesAccion.put(Estado.PARADO_ABAJO, new Animacion(true, paradoDerecha));
-		animacionesAccion.put(Estado.PARADO_ARRIBA, new Animacion(true, paradoDerecha));
-		animacionesAccion.put(Estado.PARADO_IZQUIERDA, new Animacion(true, paradoIzquierda));
+		EnumMap<Direccion, Animacion> animacionesParado = new EnumMap<Direccion, Animacion>(Direccion.class);
+		animaciones.put(Accion.PARADO, animacionesParado);
+		
+		animacionesParado.put(Direccion.DERECHA, new Animacion(true, paradoDerecha));
+		animacionesParado.put(Direccion.IZQUIERDA, new Animacion(true, paradoIzquierda));
 		
 		// CAMINANDO
-		animacionesAccion.put(Estado.MOVIENDO_DERECHA, new Animacion(true, caminandoDerecha));
-		animacionesAccion.put(Estado.MOVIENDO_ABAJO, new Animacion(true, caminandoDerecha));
-		animacionesAccion.put(Estado.MOVIENDO_ARRIBA, new Animacion(true, caminandoDerecha));
-		animacionesAccion.put(Estado.MOVIENDO_IZQUIERDA, new Animacion(true, caminandoIzquierda));
+		EnumMap<Direccion, Animacion> animacionesCaminando = new EnumMap<Direccion, Animacion>(Direccion.class);
+		animaciones.put(Accion.EN_MOVIMIENTO, animacionesCaminando);
+		animacionesCaminando.put(Direccion.DERECHA, new Animacion(true, caminandoDerecha));
+		animacionesCaminando.put(Direccion.IZQUIERDA, new Animacion(true, caminandoIzquierda));
 		
-		// ATACANDO		
-		animacionesAccion.put(Estado.ATACANDO_DERECHA, new Animacion(false, atacandoDerecha));
-		animacionesAccion.put(Estado.ATACANDO_ABAJO, new Animacion(false, atacandoAbajo));
-		animacionesAccion.put(Estado.ATACANDO_ARRIBA, new Animacion(false, atacandoArriba));
-		animacionesAccion.put(Estado.ATACANDO_IZQUIERDA, new Animacion(false, atacandoIzquierda));
+		// ATACANDO
+		EnumMap<Direccion, Animacion> animacionesAtacando = new EnumMap<Direccion, Animacion>(Direccion.class);
+		animaciones.put(Accion.ATACANDO, animacionesAtacando);
+		animacionesAtacando.put(Direccion.DERECHA, new Animacion(false, atacandoDerecha));
+		animacionesAtacando.put(Direccion.ABAJO, new Animacion(false, atacandoAbajo));
+		animacionesAtacando.put(Direccion.ARRIBA, new Animacion(false, atacandoArriba));
+		animacionesAtacando.put(Direccion.IZQUIERDA, new Animacion(false, atacandoIzquierda));
 	}
 	
 	/**
@@ -116,7 +120,16 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	 * @param estado el estado correspondiente a la animacion deseada.
 	 */
 	public void cambiaAnimacion(Estado estado) {
-		animador().reproduce(animacionesAccion.get(estado));
+		Animacion animacion;
+		if (estado.accion() == Accion.ATACANDO || estado.direccionPrimaria().esHorizontal()) {
+			animacion = animaciones.get(estado.accion()).get(estado.direccionPrimaria());
+		} else if (estado.direccionSecundaria().esHorizontal()){
+			animacion = animaciones.get(estado.accion()).get(estado.direccionSecundaria());
+		} else {
+			animacion = animaciones.get(estado.accion()).get(Direccion.DERECHA);
+		}
+		
+		animador().reproduce(animacion);
 	}
 
 	@Override
