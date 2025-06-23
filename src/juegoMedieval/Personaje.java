@@ -11,6 +11,9 @@ import juegoMedieval.utils.UtilsDepuracion;
 
 /**
  * Representa un personaje que puede moverse y atacar en 4 direcciones.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 		

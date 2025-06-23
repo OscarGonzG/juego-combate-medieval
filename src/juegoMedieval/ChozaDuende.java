@@ -7,6 +7,12 @@ import j2d.mods.ITemporizado;
 import j2d.mods.Temporizador;
 import juegoMedieval.utils.UtilsDepuracion;
 
+/**
+ * Choza que genera duendes periodicamente.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
+ */
 public class ChozaDuende extends Edificio implements ITemporizado {
 	
 	public static int ANCHO_CHOZA = 100;

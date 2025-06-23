@@ -2,6 +2,9 @@ package juegoMedieval;
 
 /**
  * Guarda las rutas a los ficheros de recursos graficos y de audio de un personaje.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public record RecursosPersonaje(String directorioSprites, String rutaSonidoAtaque, String[] rutasSonidosPaso) {
 	

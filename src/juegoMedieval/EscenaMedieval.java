@@ -12,6 +12,12 @@ import j2d.JObjeto;
 import j2d.Juego;
 import j2d.utils.ImagenesUtils;
 
+/**
+ * Representa una escena del juego de combate medieval.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
+ */
 public class EscenaMedieval extends JEscena {
 	
 	private int duendesCreados = 0;

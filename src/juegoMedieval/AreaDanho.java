@@ -10,6 +10,9 @@ import juegoMedieval.utils.UtilsDepuracion;
 /**
  * Aplica danho a todos los enemigos en el area del objeto cuando pase el tiempo
  * indicado desde su inclusion en la escena y despues se elimina de la escena.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public class AreaDanho extends JObjetoRectangulo implements ITemporizado {
 

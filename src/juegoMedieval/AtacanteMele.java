@@ -4,6 +4,12 @@ import java.awt.Rectangle;
 
 import j2d.mods.IVisualizadorNumerico;
 
+/**
+ * Representa un personaje que combate cuerpo a cuerpo.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
+ */
 public abstract class AtacanteMele extends Personaje {
 	
 	private static final int ALCANCE_ATAQUE_VERTICAL = 90;

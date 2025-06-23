@@ -18,6 +18,9 @@ import juegoMedieval.Estado.Direccion;
  * de gestionar animaciones y sonidos.
  * 
  * Cada animacion se corresponde a uno o varios {@link Estado estados}.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public class PielPersonaje extends JObjetoIcono implements IVidaControlada {
 	

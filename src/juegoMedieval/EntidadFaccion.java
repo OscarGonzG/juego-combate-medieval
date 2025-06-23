@@ -7,6 +7,9 @@ import j2d.mods.ControladorVida;
 
 /**
  * Representa a una entidad que pertenece a una {@link Faccion}.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public abstract class EntidadFaccion extends JObjetoRectangulo {
 

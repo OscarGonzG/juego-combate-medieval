@@ -5,6 +5,9 @@ import java.awt.Color;
 /**
  * Clase de utilidad que sirve para mostrar u ocultar informacion de depuracion
  * durante el juego.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public final class UtilsDepuracion {
 	private UtilsDepuracion() {}

@@ -2,6 +2,12 @@ package juegoMedieval;
 
 import j2d.GuiaObjeto;
 
+/**
+ * Duende enemigo que persigue y ataca al jugador.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
+ */
 public class DuendePiromano extends AtacanteMele {
 	private static final String DIR_SPRITES = "resources/torch_goblin_red/"; 
 	private static final String RUTA_SONIDO_ATAQUE = "resources/sounds/attacks/torch_attack.wav";

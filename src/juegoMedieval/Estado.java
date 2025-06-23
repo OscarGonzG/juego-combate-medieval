@@ -7,6 +7,9 @@ package juegoMedieval;
  * La direccion a su vez se descompone en direccion primaria y secundaria para
  * indicar direcciones diagonales. La direccion secundaria puede ser igual que
  * la primaria, implicando alineacion a un eje, pero nunca opuesta.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
  */
 public record Estado(Direccion direccionPrimaria, Direccion direccionSecundaria, Accion accion) {
 	public enum Direccion {

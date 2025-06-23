@@ -10,6 +10,12 @@ import j2d.mods.IGuiadoPorRaton;
 import j2d.mods.JObjetoVisNumBarra;
 import j2d.mods.Temporizador;
 
+/**
+ * Caballero controlado por el jugador.
+ * 
+ * @author Oscar Gonzalez Garcia
+ * @version jun-2025
+ */
 public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	
 	private static final String DIR_SPRITES = "resources/knight_blue/";
