@@ -1,6 +1,5 @@
 package juegoMedieval;
 
-import j2d.JObjetoRectangulo;
 import j2d.mods.ControladorVida;
 import j2d.mods.ITemporizado;
 import j2d.mods.IVisualizadorNumerico;
@@ -13,16 +12,14 @@ import juegoMedieval.utils.UtilsDepuracion;
 /**
  * Representa un personaje que puede moverse y atacar en 4 direcciones.
  */
-public abstract class Personaje extends JObjetoRectangulo implements ITemporizado {
+public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 		
 	
 	private final Temporizador temporizadorAtaque;
 	private final PielPersonaje piel;
-	private final ControladorVida controladorVida;
 	private final EstadisticasPersonaje estadisticas;
 
 	private boolean puedeAtacar = true;
-	private boolean muerto = false;
 	
 	/**
 	 * {@inheritDoc} Para el objeto Personaje, recarga la habilidad de ataque.
@@ -59,15 +56,14 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 				this, PielPersonaje.DURACION_ATAQUE_MS, false,
 				TipoCuenta.CUENTA_ASCENDENTE);
 		
-		this.controladorVida = new ControladorVida(estadisticas.saludBase(), barraVida, piel);
-		controladorVida.configuraAccionesMuerte(PielPersonaje.ANIMACION_MUERTE);
+		ControladorVida controladorVida = new ControladorVida(estadisticas.saludBase(), barraVida, piel);
+		setControladorVida(controladorVida);
 		
 		int despAdornoX = (anchoX - piel.anchoX()) / 2;
 		int despAdornoY = (altoY - piel.altoY()) / 2;
 		
 		adornoAnhade(piel, despAdornoX, despAdornoY);
 		estado = new Estado(Direccion.DERECHA, Accion.PARADO);
-		asignaFactorGravedad(0);
 		
 		piel.cambiaAnimacion(estado);
 	}
@@ -88,15 +84,17 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 		this.estadisticas = estadisticas;
 		this.temporizadorAtaque = new Temporizador(PielPersonaje.DURACION_ATAQUE_MS,
 												   this);
-		this.controladorVida = new ControladorVida(estadisticas.saludBase(),
-												   piel);
+		ControladorVida controladorVida 
+						= new ControladorVida(estadisticas.saludBase(), piel);
 		controladorVida.configuraAccionesMuerte(PielPersonaje.ANIMACION_MUERTE);
+		setControladorVida(controladorVida);
+		
 		int despAdornoX = (-piel.anchoX() + anchoX) / 2;
 		int despAdornoY = (-piel.altoY() + altoY) / 2;
 
 		adornoAnhade(piel, despAdornoX, despAdornoY);
 		estado = new Estado(Direccion.DERECHA, Accion.PARADO);
-		asignaFactorGravedad(0);
+
 
 		piel.cambiaAnimacion(estado);
 	}
@@ -217,14 +215,7 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 		return false;
 	}
 	
-	/**
-	 * Obtiene el controlador de vida del personaje.
-	 * @return el controlador de vida del personaje.
-	 */
-	public ControladorVida getControladorVida() {
-		return controladorVida;
-	}
-	
+
 	/**
 	 * Devuelve el danho que hace un ataque del personaje.
 	 * @return el danho que hace un ataque del personaje.
@@ -232,27 +223,4 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 	public int getDanho() {
 		return estadisticas.danhoBase();
 	}
-	
-	/**
-	 * Mata al personaje.
-	 */
-	public void muere() {
-		muerto = true;
-		colisionador().desactiva();
-		asignaVel(0, 0);
-	}
-	
-	/**
-	 * Indica si el personaje esta muerto.
-	 * @return true si esta muerto, false en caso contrario.
-	 */
-	public boolean estaMuerto() {
-		return muerto;
-	}
-	
-	/**
-	 * Devuelve la faccion a la que pertenece el personaje.
-	 * @return la faccion a la que pertenece el personaje.
-	 */
-	public abstract Faccion getFaccion();
 }

@@ -15,23 +15,36 @@ import j2d.utils.ImagenesUtils;
 public class EscenaMedieval extends JEscena {
 	
 	private int duendesCreados = 0;
-	private List<DuendePiromano> duendes = new ArrayList<>();
+	private int chozasCreadas = 0;
+	private List<EntidadFaccion> entidades = new ArrayList<>();
 	
-	private Caballero jugador;
 	
 	@Override
 	public void entraEscena() {
 		poneTexturaFondo(ImagenesUtils.creaImagen("resources/terrain/flat/green_middle.png"), 1);
 		asignaGravedad(1);
 		
-		generaDuendePiromano(new Point(100, 100));
-		generaDuendePiromano(new Point(200, 100));
-		generaDuendePiromano(new Point(300, 100));
+		generaChozaDuende(new Point((int) (ChozaDuende.ANCHO_CHOZA * 1.5), altoY() / 3));
 		
-		jugador = new Caballero("jugador");
+		Caballero jugador = new Caballero("jugador");
 		controladoRatonAnhade(jugador.getGuiaPorRaton());
 		incluyeObj(jugador, Juego.anchoPixelsX() / 2, Juego.altoPixelsY() / 2);
+		
+		entidades.add(jugador);
 	}
+	
+	/**
+	 * Genera una choza duende en la posicion indicada.
+	 * @param puntoAparicion el punto sobre el cual aparecera el centro de la
+	 * base de la choza.
+	 */
+	public void generaChozaDuende(Point puntoAparicion) {
+		chozasCreadas++;
+		ChozaDuende c = new ChozaDuende("choza" + chozasCreadas);
+		incluyeObjCentrado(c, puntoAparicion.x, puntoAparicion.y - c.altoY() / 2);
+		entidades.add(c);
+	}
+	
 	
 	/**
 	 * Genera un duende piromano en la posicion indicada.
@@ -42,7 +55,7 @@ public class EscenaMedieval extends JEscena {
 		duendesCreados++;
 		DuendePiromano d = new DuendePiromano("duende" + duendesCreados);
 		incluyeObjCentrado(d, puntoAparicion.x, puntoAparicion.y);
-		duendes.add(d);
+		entidades.add(d);
 	}
 	
 	/**
@@ -52,30 +65,22 @@ public class EscenaMedieval extends JEscena {
 	 * @param faccion faccion cuyos enemigos van a buscarse.
 	 * @return lista con todos los personajes de la faccion en el area dada.
 	 */
-	public List<Personaje> buscaEntidadesEnemigasEnArea(Rectangle area, Faccion faccion) {
-		List<Personaje> entidades = new ArrayList<>();
-		switch (faccion) {
-		case CABALLEROS -> {
-			for (Personaje e : duendes) {
-				if (e.area().intersects(area)) {
-					entidades.add(e);
-				}
+	public List<EntidadFaccion> buscaEntidadesEnemigasEnArea(Rectangle area, Faccion faccion) {
+		List<EntidadFaccion> entidadesEncontradas = new ArrayList<>();
+		
+		for (EntidadFaccion e : entidades) {
+			if (e.getFaccion() != faccion && e.area().intersects(area)) {
+				entidadesEncontradas.add(e);
 			}
-		}
-		case DUENDES -> {
-			if (jugador.area().intersects(area)) {
-				entidades.add(jugador);			
-			}
-		}
 		}
 		
-		return entidades;
+		return entidadesEncontradas;
 	}
 	
 	@Override
 	public synchronized void eliminaObj(JObjeto obj) throws ObjetoNoEnEscena {
-		if (obj instanceof DuendePiromano duendePiromano) {
-			duendes.remove(duendePiromano);
+		if (obj instanceof EntidadFaccion entidad) {
+			entidades.remove(entidad);
 		}
 		super.eliminaObj(obj);
 	}
