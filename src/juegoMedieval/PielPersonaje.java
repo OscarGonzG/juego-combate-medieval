@@ -25,7 +25,7 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	
 	public static final Animacion ANIMACION_MUERTE = cargaAnimacionMuerte();
 	
-	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animaciones = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
+	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
 	
 	private static final int DURACION_FRAME_MS = 100;
 	private static final int FRAMES_ANIMACION_ACCION = 6;
@@ -95,20 +95,20 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 		}
 		// PARADO
 		EnumMap<Direccion, Animacion> animacionesParado = new EnumMap<Direccion, Animacion>(Direccion.class);
-		animaciones.put(Accion.PARADO, animacionesParado);
+		animacionesAccion.put(Accion.PARADO, animacionesParado);
 		
 		animacionesParado.put(Direccion.DERECHA, new Animacion(true, paradoDerecha));
 		animacionesParado.put(Direccion.IZQUIERDA, new Animacion(true, paradoIzquierda));
 		
 		// CAMINANDO
 		EnumMap<Direccion, Animacion> animacionesCaminando = new EnumMap<Direccion, Animacion>(Direccion.class);
-		animaciones.put(Accion.EN_MOVIMIENTO, animacionesCaminando);
+		animacionesAccion.put(Accion.CAMINANDO, animacionesCaminando);
 		animacionesCaminando.put(Direccion.DERECHA, new Animacion(true, caminandoDerecha));
 		animacionesCaminando.put(Direccion.IZQUIERDA, new Animacion(true, caminandoIzquierda));
 		
 		// ATACANDO
 		EnumMap<Direccion, Animacion> animacionesAtacando = new EnumMap<Direccion, Animacion>(Direccion.class);
-		animaciones.put(Accion.ATACANDO, animacionesAtacando);
+		animacionesAccion.put(Accion.ATACANDO, animacionesAtacando);
 		animacionesAtacando.put(Direccion.DERECHA, new Animacion(false, atacandoDerecha));
 		animacionesAtacando.put(Direccion.ABAJO, new Animacion(false, atacandoAbajo));
 		animacionesAtacando.put(Direccion.ARRIBA, new Animacion(false, atacandoArriba));
@@ -122,11 +122,11 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	public void cambiaAnimacion(Estado estado) {
 		Animacion animacion;
 		if (estado.accion() == Accion.ATACANDO || estado.direccionPrimaria().esHorizontal()) {
-			animacion = animaciones.get(estado.accion()).get(estado.direccionPrimaria());
+			animacion = animacionesAccion.get(estado.accion()).get(estado.direccionPrimaria());
 		} else if (estado.direccionSecundaria().esHorizontal()){
-			animacion = animaciones.get(estado.accion()).get(estado.direccionSecundaria());
+			animacion = animacionesAccion.get(estado.accion()).get(estado.direccionSecundaria());
 		} else {
-			animacion = animaciones.get(estado.accion()).get(Direccion.DERECHA);
+			animacion = animacionesAccion.get(estado.accion()).get(Direccion.DERECHA);
 		}
 		
 		animador().reproduce(animacion);

@@ -50,7 +50,7 @@ public record Estado(Direccion direccionPrimaria, Direccion direccionSecundaria,
 
 	public enum Accion {
 		PARADO,
-		EN_MOVIMIENTO,
+		CAMINANDO,
 		ATACANDO
 	}
 	

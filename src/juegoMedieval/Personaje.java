@@ -184,7 +184,7 @@ public abstract class Personaje extends JObjetoRectangulo implements ITemporizad
 			if (velX == 0 && velY == 0) {
 				cambiaAccion(Accion.PARADO);
 			} else {
-				cambiaAccion(Accion.EN_MOVIMIENTO);
+				cambiaAccion(Accion.CAMINANDO);
 
 				Direccion direccionX = velX > 0 ? 
 						Direccion.DERECHA : Direccion.IZQUIERDA;
