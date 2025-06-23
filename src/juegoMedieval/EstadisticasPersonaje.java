@@ -1,5 +1,5 @@
 package juegoMedieval;
 
-public record EstadisticasPersonaje(int saludBase, int danhoBase, int velocidadBase) {
+public record EstadisticasPersonaje(float saludBase, int danhoBase, int velocidadBase) {
 
 }

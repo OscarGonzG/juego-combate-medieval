@@ -44,8 +44,8 @@ public class AreaDanho extends JObjetoRectangulo implements ITemporizado {
 	@Override
 	public void finTiempo(Temporizador temporizador) {
 		EscenaMedieval escena = ((EscenaMedieval) escena());
-		List<Personaje> enemigos = escena.buscaEntidadesEnemigasEnArea(area(), faccion);
-		for (Personaje e : enemigos) {
+		List<EntidadFaccion> enemigos = escena.buscaEntidadesEnemigasEnArea(area(), faccion);
+		for (EntidadFaccion e : enemigos) {
 			if (e.estaMuerto()) {
 				continue;
 			}
