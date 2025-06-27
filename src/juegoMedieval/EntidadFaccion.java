@@ -2,6 +2,7 @@ package juegoMedieval;
 
 import java.awt.Color;
 
+import j2d.JEscena;
 import j2d.JObjetoRectangulo;
 import j2d.mods.ControladorVida;
 
@@ -62,5 +63,19 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 */
 	public boolean estaMuerto() {
 		return muerto;
+	}
+	
+	@Override
+	public void objetoIncluido() {
+		if (escena() instanceof EscenaCombate escenaCombate) {
+			escenaCombate.registraEntidad(this);
+		}
+	}
+	
+	@Override
+	public void objetoEliminado(JEscena escena) {
+		if (escena instanceof EscenaCombate escenaCombate) {
+			escenaCombate.borraEntidad(this);
+		}
 	}
 }
