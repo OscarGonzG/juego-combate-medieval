@@ -9,6 +9,8 @@ import j2d.GuiaObjeto;
  * @version jun-2025
  */
 public class DuendePiromano extends AtacanteMele {
+	
+	private static final int INDICE_Z = 20;
 	private static final String DIR_SPRITES = "resources/torch_goblin_red/"; 
 	private static final String RUTA_SONIDO_ATAQUE = "resources/sounds/attacks/torch_attack.wav";
 	
@@ -25,6 +27,7 @@ public class DuendePiromano extends AtacanteMele {
 		super(nombre, ANCHURA_DUENDE, ALTURA_DUENDE,
 				new EstadisticasPersonaje(SALUD_MAX_BASE, DANHO_BASE, VELOCIDAD_BASE),
 				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE));
+		asignaZ(INDICE_Z);
 	}
 
 	/**

@@ -21,6 +21,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	private static final String DIR_SPRITES = "resources/knight_blue/";
 	private static final String RUTA_SONIDO_ATAQUE = "resources/sounds/attacks/sword_attack.wav";
 	private static final String[] RUTAS_SONIDOS_PASO = {"resources/sounds/walking/dirt_chain_walk3.wav", "resources/sounds/walking/dirt_chain_walk2.wav"};
+	private static final int INDICE_Z = 30;	
 	
 	private GuiaPorRaton guiaRaton;
 	
@@ -42,9 +43,11 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 		super(nombre, ANCHURA_JUGADOR, ALTURA_JUGADOR,
 				new EstadisticasPersonaje(SALUD_MAX_BASE, DANHO_BASE, VELOCIDAD_BASE), barraVida, barraRefescoAtaque,
 				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO));
+		asignaZ(INDICE_Z);
 		adornoAnhade(barraRefescoAtaque, 0, 0);
 		adornoAnhade(barraVida, 0, (int) (- 1.5 * ALTURA_BARRAS_ESTADO));
 		guiaRaton = new GuiaPorRaton(this, VELOCIDAD_BASE, 20);
+		asignaZ(INDICE_Z);
 	}
 	
 	public GuiaPorRaton getGuiaPorRaton() {
