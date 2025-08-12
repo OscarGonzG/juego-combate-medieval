@@ -18,6 +18,7 @@ import j2d.utils.Sonido;
  */
 public abstract class Edificio extends EntidadFaccion implements IVidaControlada {
 	
+	private static final int INDICE_Z = 10;
 	private JObjetoIcono iconoEdificio;
 	private static final int DURACION_FRAME_MS = 100;
 	private final Image imagenDestruido;
@@ -41,6 +42,7 @@ public abstract class Edificio extends EntidadFaccion implements IVidaControlada
 		int despAdornoX = (anchoX - iconoEdificio.anchoX()) / 2;
 		int despAdornoY = (altoY - iconoEdificio.altoY()) / 2;
 		adornoAnhade(iconoEdificio, despAdornoX, despAdornoY);
+		asignaZ(INDICE_Z);
 	}
 	
 	@Override
