@@ -3,6 +3,7 @@ package juegoMedieval;
 import java.awt.Color;
 
 import j2d.JEscena;
+import j2d.JObjeto;
 import j2d.JObjetoRectangulo;
 import j2d.mods.ControladorVida;
 
@@ -17,7 +18,7 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	private ControladorVida controladorVida = null;
 	private boolean muerto = false;
 	
-	public EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador) {
+	protected EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador) {
 		super(nombre, anchoX, altoY, colorColisionador);
 		asignaFactorGravedad(0);
 	}
@@ -48,6 +49,10 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 */
 	public abstract Faccion getFaccion();
 
+	protected JObjeto getVisualizadorVida() {
+		return controladorVida.objVisualizador();
+	}
+	
 	/**
 	 * Mata al personaje.
 	 */

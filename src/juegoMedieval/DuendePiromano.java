@@ -1,6 +1,7 @@
 package juegoMedieval;
 
 import j2d.GuiaObjeto;
+import juegoMedieval.utils.UtilsDepuracion;
 
 /**
  * Duende enemigo que persigue y ataca al jugador.
@@ -26,7 +27,8 @@ public class DuendePiromano extends AtacanteMele {
 	public DuendePiromano(String nombre) {
 		super(nombre, ANCHURA_DUENDE, ALTURA_DUENDE,
 				new EstadisticasPersonaje(SALUD_MAX_BASE, DANHO_BASE, VELOCIDAD_BASE),
-				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE));
+				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE),
+				UtilsDepuracion.colorColisionadorDuende());
 		asignaZ(INDICE_Z);
 	}
 
