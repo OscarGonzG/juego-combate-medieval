@@ -57,7 +57,7 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 		for (int i = 0; i < FRAMES_ANIMACION_MUERTE; i++) {
 			muerte[FRAMES_ANIMACION_MUERTE + i] = new Diapositiva(ImagenesUtils.creaImagen(DIR_ANIMACIONES_MUERTE + "despawn" + (i + 1) + ".png"), 1, DURACION_FRAME_MS);
 		}
-
+		
 		return new Animacion(muerte);
 	}
 	
@@ -143,8 +143,7 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 
 	@Override
 	public void recuperaVida(float incrementoVida) {
-		// TODO Auto-generated method stub
-		
+		// metodo innecesario
 	}
 
 	@Override
