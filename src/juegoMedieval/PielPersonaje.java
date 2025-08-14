@@ -137,8 +137,8 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 
 	@Override
 	public void pierdeVida(float decrementoVida) {
-		objMaestro().escena().incluyeObj(new IndicadorDanho((int) decrementoVida),
-				objMaestro().centro().x, objMaestro().centro().y);	/// FIXME arreglar escena() para adornos
+		escena().incluyeObj(new IndicadorDanho((int) decrementoVida),
+				objMaestro().centro().x, objMaestro().centro().y);
 	}
 
 	@Override
