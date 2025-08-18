@@ -12,7 +12,7 @@ import juegoMedieval.utils.UtilsDepuracion;
  * indicado desde su inclusion en la escena y despues se elimina de la escena.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public class AreaDanho extends JObjetoRectangulo implements ITemporizado {
 

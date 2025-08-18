@@ -7,7 +7,7 @@ import juegoMedieval.utils.UtilsDepuracion;
  * Duende enemigo que persigue y ataca al jugador.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public class DuendePiromano extends AtacanteMele {
 	

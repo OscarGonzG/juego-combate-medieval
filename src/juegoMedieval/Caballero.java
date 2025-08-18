@@ -16,7 +16,7 @@ import juegoMedieval.utils.UtilsDepuracion;
  * Caballero controlado por el jugador.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	
@@ -70,8 +70,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	@Override
 	public void pulsadoBotonDerecho(Point p) {
 		ataca();
-		guiaRaton.ratonBotonSoltado(new MouseEvent(Juego.ventana(), 0, 0, 0, 0, 0, 0, 0, 0, false, 1)); /// XXX temporal
-		escena().controladoRatonElimina(guiaRaton);
+		guiaRaton.pausaGuia();
 	}
 
 	@Override
@@ -83,7 +82,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	public void muere() {
 		super.muere();
 		escena().controladoRatonElimina(guiaRaton);
-		guiaRaton.ratonBotonSoltado(new MouseEvent(Juego.ventana(), 0, 0, 0, 0, 0, 0, 0, 0, false, 1)); /// XXX temporal
+		guiaRaton.pausaGuia();
 		adornoElimina(barraVida);
 		adornoElimina(barraRefescoAtaque);
 	}
@@ -98,7 +97,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 		super.finTiempo(temporizador);
 		if (!estaMuerto()) {
 			// Si ataca justo antes de morir, no debemos volver a anhadir la guia
-			escena().controladoRatonAnhade(guiaRaton);			
+			guiaRaton.reanudaGuia();		
 		}
 	}
 }

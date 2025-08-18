@@ -11,12 +11,11 @@ import j2d.mods.ControladorVida;
  * Representa a una entidad que pertenece a una {@link Faccion}.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class EntidadFaccion extends JObjetoRectangulo {
 
 	private ControladorVida controladorVida = null;
-	private boolean muerto = false;
 	
 	protected EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador) {
 		super(nombre, anchoX, altoY, colorColisionador);
@@ -24,7 +23,8 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	}
 	
 	/**
-	 * 
+	 * Asigna el controlador de vida de la entidad. Es necasario llamarlo para
+	 * inicializar el objeto correctamente.
 	 */
 	protected void setControladorVida(ControladorVida controladorVida) {
 		if (this.controladorVida != null) {
@@ -57,7 +57,6 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 * Mata al personaje.
 	 */
 	public void muere() {
-		muerto = true;
 		colisionador().desactiva();
 		asignaVel(0, 0);
 	}
@@ -67,7 +66,7 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 * @return true si esta muerto, false en caso contrario.
 	 */
 	public boolean estaMuerto() {
-		return muerto;
+		return controladorVida.numVidasRestantes() <= 0;
 	}
 	
 	@Override

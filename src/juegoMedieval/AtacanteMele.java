@@ -9,7 +9,7 @@ import j2d.mods.IVisualizadorNumerico;
  * Representa un personaje que combate cuerpo a cuerpo.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class AtacanteMele extends Personaje {
 	

@@ -14,7 +14,7 @@ import j2d.utils.Sonido;
  * Representa un edificio de una faccion.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class Edificio extends EntidadFaccion implements IVidaControlada {
 	

@@ -9,7 +9,7 @@ import juegoMedieval.utils.UtilsDepuracion;
  * Choza que genera duendes periodicamente.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public class ChozaDuende extends Edificio implements ITemporizado {
 	
