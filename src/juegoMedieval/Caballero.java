@@ -4,17 +4,19 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import j2d.JObjeto;
 import j2d.Juego;
 import j2d.mods.GuiaPorRaton;
 import j2d.mods.IGuiadoPorRaton;
 import j2d.mods.JObjetoVisNumBarra;
 import j2d.mods.Temporizador;
+import juegoMedieval.utils.UtilsDepuracion;
 
 /**
  * Caballero controlado por el jugador.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	
@@ -35,15 +37,20 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	
 	public static final int ALTURA_BARRAS_ESTADO = 5;
 	
-	private static final JObjetoVisNumBarra barraVida = new JObjetoVisNumBarra(ANCHURA_JUGADOR, ALTURA_BARRAS_ESTADO, SALUD_MAX_BASE, Color.RED, Color.BLACK);
-	private static final JObjetoVisNumBarra barraRefescoAtaque = new JObjetoVisNumBarra(ANCHURA_JUGADOR, ALTURA_BARRAS_ESTADO, 600, Color.YELLOW,  Color.YELLOW);
+	private final JObjeto barraVida; 
+	private final JObjeto barraRefescoAtaque;
 	
 	
 	public Caballero(String nombre) {
 		super(nombre, ANCHURA_JUGADOR, ALTURA_JUGADOR,
-				new EstadisticasPersonaje(SALUD_MAX_BASE, DANHO_BASE, VELOCIDAD_BASE), barraVida, barraRefescoAtaque,
-				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO));
+				new EstadisticasPersonaje(SALUD_MAX_BASE, DANHO_BASE, VELOCIDAD_BASE),
+				new JObjetoVisNumBarra(ANCHURA_JUGADOR, ALTURA_BARRAS_ESTADO, SALUD_MAX_BASE, Color.RED, Color.BLACK),
+				new JObjetoVisNumBarra(ANCHURA_JUGADOR, ALTURA_BARRAS_ESTADO, 600, Color.YELLOW,  Color.YELLOW),
+				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO),
+				UtilsDepuracion.colorColisionadorCaballero());
 		asignaZ(INDICE_Z);
+		barraVida = getVisualizadorVida();
+		barraRefescoAtaque = getVisualizadorRefrescoAtaque();
 		adornoAnhade(barraRefescoAtaque, 0, 0);
 		adornoAnhade(barraVida, 0, (int) (- 1.5 * ALTURA_BARRAS_ESTADO));
 		guiaRaton = new GuiaPorRaton(this, VELOCIDAD_BASE, 20);
@@ -57,14 +64,13 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 
 	@Override
 	public void pulsadoBotonCentral(Point p) {
-		// TODO Auto-generated method stub
+		// metodo innecesario
 	}
 
 	@Override
 	public void pulsadoBotonDerecho(Point p) {
 		ataca();
-		guiaRaton.ratonBotonSoltado(new MouseEvent(Juego.ventana(), 0, 0, 0, 0, 0, 0, 0, 0, false, 1)); /// XXX temporal
-		escena().controladoRatonElimina(guiaRaton);
+		guiaRaton.pausaGuia();
 	}
 
 	@Override
@@ -76,7 +82,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	public void muere() {
 		super.muere();
 		escena().controladoRatonElimina(guiaRaton);
-		guiaRaton.ratonBotonSoltado(new MouseEvent(Juego.ventana(), 0, 0, 0, 0, 0, 0, 0, 0, false, 1)); /// XXX temporal
+		guiaRaton.pausaGuia();
 		adornoElimina(barraVida);
 		adornoElimina(barraRefescoAtaque);
 	}
@@ -91,7 +97,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 		super.finTiempo(temporizador);
 		if (!estaMuerto()) {
 			// Si ataca justo antes de morir, no debemos volver a anhadir la guia
-			escena().controladoRatonAnhade(guiaRaton);			
+			guiaRaton.reanudaGuia();		
 		}
 	}
 }

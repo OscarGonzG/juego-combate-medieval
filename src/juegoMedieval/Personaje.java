@@ -1,5 +1,8 @@
 package juegoMedieval;
 
+import java.awt.Color;
+
+import j2d.JObjeto;
 import j2d.mods.ControladorVida;
 import j2d.mods.ITemporizado;
 import j2d.mods.IVisualizadorNumerico;
@@ -7,7 +10,6 @@ import j2d.mods.Temporizador;
 import j2d.mods.Temporizador.TipoCuenta;
 import juegoMedieval.Estado.Accion;
 import juegoMedieval.Estado.Direccion;
-import juegoMedieval.utils.UtilsDepuracion;
 
 /**
  * Representa un personaje que puede moverse y atacar en 4 direcciones.
@@ -46,12 +48,12 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 	 * restante hasta que pueda volver a atacar
 	 * @param recursos los recursos graficos y de sonido del personaje
 	 */
-	public Personaje(String nombre, int anchoX, int altoY,
+	protected Personaje(String nombre, int anchoX, int altoY,
 					 EstadisticasPersonaje estadisticas,
 					 IVisualizadorNumerico barraVida,
 					 IVisualizadorNumerico visualizadorCooldownAtaque,
-					 RecursosPersonaje recursos) {
-		super(nombre, anchoX, altoY, UtilsDepuracion.colorColisionadorCaballero());
+					 RecursosPersonaje recursos, Color colorColisionador) {
+		super(nombre, anchoX, altoY, colorColisionador);
 		this.piel = new PielPersonaje(nombre + ".piel", recursos);
 		
 		this.estadisticas = estadisticas;
@@ -60,6 +62,7 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 				TipoCuenta.CUENTA_ASCENDENTE);
 		
 		ControladorVida controladorVida = new ControladorVida(estadisticas.saludBase(), barraVida, piel);
+		controladorVida.configuraAccionesMuerte(PielPersonaje.ANIMACION_MUERTE);
 		setControladorVida(controladorVida);
 		
 		int despAdornoX = (anchoX - piel.anchoX()) / 2;
@@ -81,25 +84,12 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 	 */
 	protected Personaje(String nombre, int anchoX, int altoY,
 						EstadisticasPersonaje estadisticas,
-						RecursosPersonaje recursos) {
-		super(nombre, anchoX, altoY, UtilsDepuracion.colorColisionadorDuende());
-		this.piel = new PielPersonaje(nombre + ".piel", recursos);
-		this.estadisticas = estadisticas;
-		this.temporizadorAtaque = new Temporizador(PielPersonaje.DURACION_ATAQUE_MS,
-												   this);
-		ControladorVida controladorVida 
-						= new ControladorVida(estadisticas.saludBase(), piel);
-		controladorVida.configuraAccionesMuerte(PielPersonaje.ANIMACION_MUERTE);
-		setControladorVida(controladorVida);
-		
-		int despAdornoX = (-piel.anchoX() + anchoX) / 2;
-		int despAdornoY = (-piel.altoY() + altoY) / 2;
-
-		adornoAnhade(piel, despAdornoX, despAdornoY);
-		estado = new Estado(Direccion.DERECHA, Accion.PARADO);
-
-
-		piel.cambiaAnimacion(estado);
+						RecursosPersonaje recursos, Color colorColisionador) {
+		this(nombre, anchoX, altoY, estadisticas, null, null, recursos, colorColisionador);
+	}
+	
+	protected JObjeto getVisualizadorRefrescoAtaque() {
+		return temporizadorAtaque.objVisualizador();
 	}
 
 	/**
@@ -206,11 +196,13 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 			}
 		}
 	}
+
+	
 	/**
 	 * Realiza un ataque.
 	 * @return true si ha podido iniciar el ataque, false en caso contrario.
 	 */
-	public boolean ataca() {
+	protected boolean ataca() {
 		if (cambiaAccion(Accion.ATACANDO)) {
 			puedeAtacar = false;
 			return true;

@@ -3,6 +3,7 @@ package juegoMedieval;
 import java.awt.Color;
 
 import j2d.JEscena;
+import j2d.JObjeto;
 import j2d.JObjetoRectangulo;
 import j2d.mods.ControladorVida;
 
@@ -10,20 +11,20 @@ import j2d.mods.ControladorVida;
  * Representa a una entidad que pertenece a una {@link Faccion}.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class EntidadFaccion extends JObjetoRectangulo {
 
 	private ControladorVida controladorVida = null;
-	private boolean muerto = false;
 	
-	public EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador) {
+	protected EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador) {
 		super(nombre, anchoX, altoY, colorColisionador);
 		asignaFactorGravedad(0);
 	}
 	
 	/**
-	 * 
+	 * Asigna el controlador de vida de la entidad. Es necasario llamarlo para
+	 * inicializar el objeto correctamente.
 	 */
 	protected void setControladorVida(ControladorVida controladorVida) {
 		if (this.controladorVida != null) {
@@ -48,11 +49,14 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 */
 	public abstract Faccion getFaccion();
 
+	protected JObjeto getVisualizadorVida() {
+		return controladorVida.objVisualizador();
+	}
+	
 	/**
 	 * Mata al personaje.
 	 */
 	public void muere() {
-		muerto = true;
 		colisionador().desactiva();
 		asignaVel(0, 0);
 	}
@@ -62,7 +66,7 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 * @return true si esta muerto, false en caso contrario.
 	 */
 	public boolean estaMuerto() {
-		return muerto;
+		return controladorVida.numVidasRestantes() <= 0;
 	}
 	
 	@Override
