@@ -12,9 +12,11 @@ import j2d.mods.Temporizador;
  * direccion aleatoria tras su inclusion en la escena.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public class IndicadorDanho extends JObjetoTexto implements ITemporizado {
+	
+	private static final int INDICE_Z = 41;
 	private static final int DURACION_MS = 600;
 	private static final int VEL_X = 5;
 	private static final int VEL_Y = -20;
@@ -32,6 +34,7 @@ public class IndicadorDanho extends JObjetoTexto implements ITemporizado {
 		this.asignaVel(velX, VEL_Y);
 		asignaFactorGravedad(3);
 		colisionador().desactiva();
+		asignaZ(INDICE_Z);
 	}
 
 	@Override
