@@ -31,7 +31,6 @@ public class EscenaCombate extends JEscena {
 		incluyeObj(new ChozaDuende(), 50, 50);
 		
 		Caballero jugador = new Caballero("jugador");
-		controladoRatonAnhade(jugador.getGuiaPorRaton());
 		incluyeObj(jugador, Juego.anchoPixelsX() / 2, Juego.altoPixelsY() / 2);
 	}
 	

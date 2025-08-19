@@ -47,7 +47,7 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 			return;
 		}
 		EscenaCombate escena = (EscenaCombate) escena();
-		escena.incluyeObj(new DuendePiromano("duende" + duendesGenerados + "-" + nombre()), x() + ANCHO_CHOZA, y() + ALTO_CHOZA - DuendePiromano.ALTURA_DUENDE);
+		escena.incluyeObj(new DuendePiromano("duende" + duendesGenerados + "-" + nombre()), x() + ANCHO_CHOZA, y() + ALTO_CHOZA - DuendePiromano.ALTURA);
 		duendesGenerados++;
 		
 		if (duendesGenerados < MAX_DUENDES_TOTAL) {

@@ -24,17 +24,17 @@ import juegoMedieval.Estado.Direccion;
  */
 public class PielPersonaje extends JObjetoIcono implements IVidaControlada {
 	
-private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
+	private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	
 	public static final Animacion ANIMACION_MUERTE = cargaAnimacionMuerte();
-	
-	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
 	
 	private static final int DURACION_FRAME_MS = 100;
 	private static final int FRAMES_ANIMACION_ACCION = 6;
 	private static final int FRAMES_ANIMACION_MUERTE = 7;
 	
-	protected static final int DURACION_ATAQUE_MS = PielPersonaje.DURACION_FRAME_MS * PielPersonaje.FRAMES_ANIMACION_ACCION;
+	public static final int DURACION_ATAQUE_MS = PielPersonaje.DURACION_FRAME_MS * PielPersonaje.FRAMES_ANIMACION_ACCION;
+	
+	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
 	
 	/**
 	 * Crea una piel de personaje.

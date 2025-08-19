@@ -19,12 +19,13 @@ import j2d.utils.Sonido;
 public abstract class Edificio extends EntidadFaccion implements IVidaControlada {
 	
 	private static final int INDICE_Z = 10;
-	private JObjetoIcono iconoEdificio;
 	private static final int DURACION_FRAME_MS = 100;
+
+	private JObjetoIcono iconoEdificio;
 	private final Image imagenDestruido;
 	private final Sonido sonidoDestruido;
 
-	public Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos, Color colorColisionador) {
+	protected Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos, Color colorColisionador) {
 		super(nombre, anchoX, altoY, colorColisionador);
 		this.imagenDestruido = ImagenesUtils.creaImagen(recursos.directorioSprites() + "destroyed.png");
 		this.sonidoDestruido = new Sonido(recursos.rutaSonidoDestruccion());
