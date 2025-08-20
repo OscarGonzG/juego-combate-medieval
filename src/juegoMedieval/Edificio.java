@@ -14,16 +14,18 @@ import j2d.utils.Sonido;
  * Representa un edificio de una faccion.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class Edificio extends EntidadFaccion implements IVidaControlada {
 	
-	private JObjetoIcono iconoEdificio;
+	private static final int INDICE_Z = 10;
 	private static final int DURACION_FRAME_MS = 100;
+
+	private JObjetoIcono iconoEdificio;
 	private final Image imagenDestruido;
 	private final Sonido sonidoDestruido;
 
-	public Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos, Color colorColisionador) {
+	protected Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos, Color colorColisionador) {
 		super(nombre, anchoX, altoY, colorColisionador);
 		this.imagenDestruido = ImagenesUtils.creaImagen(recursos.directorioSprites() + "destroyed.png");
 		this.sonidoDestruido = new Sonido(recursos.rutaSonidoDestruccion());
@@ -41,6 +43,7 @@ public abstract class Edificio extends EntidadFaccion implements IVidaControlada
 		int despAdornoX = (anchoX - iconoEdificio.anchoX()) / 2;
 		int despAdornoY = (altoY - iconoEdificio.altoY()) / 2;
 		adornoAnhade(iconoEdificio, despAdornoX, despAdornoY);
+		asignaZ(INDICE_Z);
 	}
 	
 	@Override

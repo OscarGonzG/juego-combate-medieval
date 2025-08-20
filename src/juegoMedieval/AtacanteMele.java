@@ -1,5 +1,6 @@
 package juegoMedieval;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 import j2d.mods.IVisualizadorNumerico;
@@ -8,7 +9,7 @@ import j2d.mods.IVisualizadorNumerico;
  * Representa un personaje que combate cuerpo a cuerpo.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class AtacanteMele extends Personaje {
 	
@@ -16,19 +17,21 @@ public abstract class AtacanteMele extends Personaje {
 	private static final int ALCANCE_ATAQUE_HORIZONTAL = 90;
 	private static final int ANCHO_ATAQUE = 120;
 
-	protected AtacanteMele(String nombre, int anchoX, int altoY, EstadisticasPersonaje estadisticas, RecursosPersonaje recursos) {
-		super(nombre, anchoX, altoY, estadisticas, recursos);
+	protected AtacanteMele(String nombre, int anchoX, int altoY, EstadisticasPersonaje estadisticas, RecursosPersonaje recursos,
+			Color colorColisionador) {
+		this(nombre, anchoX, altoY, estadisticas, null, null, recursos, colorColisionador);
 	}
 	
-	public AtacanteMele(String nombre, int anchoX, int altoY, EstadisticasPersonaje estadisticas,
+	protected AtacanteMele(String nombre, int anchoX, int altoY,
+						EstadisticasPersonaje estadisticas,
 						IVisualizadorNumerico barraVida,
 						IVisualizadorNumerico visualizadorCooldownAtaque,
-						RecursosPersonaje recursos) {
-		super(nombre, anchoX, altoY, estadisticas, barraVida, visualizadorCooldownAtaque, recursos);
+						RecursosPersonaje recursos, Color colorColisionador) {
+		super(nombre, anchoX, altoY, estadisticas, barraVida, visualizadorCooldownAtaque, recursos, colorColisionador);
 	}
 
 	@Override
-	public boolean ataca() {
+	protected boolean ataca() {
 		if (!super.ataca()) {
 			return false;
 		}

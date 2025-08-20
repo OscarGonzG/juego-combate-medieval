@@ -24,17 +24,17 @@ import juegoMedieval.Estado.Direccion;
  */
 public class PielPersonaje extends JObjetoIcono implements IVidaControlada {
 	
-private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
+	private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	
 	public static final Animacion ANIMACION_MUERTE = cargaAnimacionMuerte();
-	
-	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
 	
 	private static final int DURACION_FRAME_MS = 100;
 	private static final int FRAMES_ANIMACION_ACCION = 6;
 	private static final int FRAMES_ANIMACION_MUERTE = 7;
 	
-	protected static final int DURACION_ATAQUE_MS = PielPersonaje.DURACION_FRAME_MS * PielPersonaje.FRAMES_ANIMACION_ACCION;
+	public static final int DURACION_ATAQUE_MS = PielPersonaje.DURACION_FRAME_MS * PielPersonaje.FRAMES_ANIMACION_ACCION;
+	
+	private EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<Accion, EnumMap<Direccion,Animacion>>(Accion.class);
 	
 	/**
 	 * Crea una piel de personaje.
@@ -57,7 +57,7 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 		for (int i = 0; i < FRAMES_ANIMACION_MUERTE; i++) {
 			muerte[FRAMES_ANIMACION_MUERTE + i] = new Diapositiva(ImagenesUtils.creaImagen(DIR_ANIMACIONES_MUERTE + "despawn" + (i + 1) + ".png"), 1, DURACION_FRAME_MS);
 		}
-
+		
 		return new Animacion(muerte);
 	}
 	
@@ -137,14 +137,13 @@ private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 
 	@Override
 	public void pierdeVida(float decrementoVida) {
-		objMaestro().escena().incluyeObj(new IndicadorDanho((int) decrementoVida),
-				objMaestro().centro().x, objMaestro().centro().y);	/// FIXME arreglar escena() para adornos
+		escena().incluyeObj(new IndicadorDanho((int) decrementoVida),
+				objMaestro().centro().x, objMaestro().centro().y);
 	}
 
 	@Override
 	public void recuperaVida(float incrementoVida) {
-		// TODO Auto-generated method stub
-		
+		// metodo innecesario
 	}
 
 	@Override
