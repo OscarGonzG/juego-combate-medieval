@@ -24,8 +24,8 @@ public class DuendePiromano extends AtacanteMele {
 
 	private EntidadFaccion objetivo;
 	
-	public DuendePiromano(String nombre) {
-		super(nombre, ANCHURA, ALTURA,
+	public DuendePiromano() {
+		super(null, ANCHURA, ALTURA,
 				new EstadisticasPersonaje(SALUD_BASE, DANHO_BASE, VELOCIDAD_BASE),
 				new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE),
 				UtilsDepuracion.colorColisionadorDuende());

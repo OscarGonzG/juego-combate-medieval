@@ -12,26 +12,25 @@ import juegoMedieval.utils.UtilsDepuracion;
  * @version ago-2025
  */
 public class ChozaDuende extends Edificio implements ITemporizado {
-	
-	public static int ANCHO_CHOZA = 100;
-	public static int ALTO_CHOZA = 135;
+
+	private static final String DIR_SPRITE = "resources/goblin_hut/";
+	private static final String RUTA_SONIDO_DESTRUCCION = "resources/sounds/building/wood_collapse.wav";
+
+	public static int ANCHURA = 100;
+	public static int ALTURA = 135;
 	
 	public static final int SALUD_BASE = 100;
 	public static final int TIEMPO_GENERACION_MS = 8_000;
 	public static final int TIEMPO_PRIMERA_GENERACION_MS = 1_000;
-	public static final int MAX_DUENDES_TOTAL = 4;
-
-	private static int chozasCreadas = 0; // Todas las chozas creadas
 	
-	private int duendesGenerados = 0; // Duendes generados por esta choza
+	private int duendesDentro = 4; // Duendes restantes en esta choza
 	
 	private Temporizador generadorDuendes = new Temporizador(TIEMPO_PRIMERA_GENERACION_MS, this);
 	
-	private static final RecursosEdificio RECURSOS = new RecursosEdificio("resources/goblin_hut/", 1, "resources/sounds/building/wood_collapse.wav");
-
 	public ChozaDuende() {
-		super("choza" + (chozasCreadas + 1), ANCHO_CHOZA, ALTO_CHOZA, RECURSOS, UtilsDepuracion.colorColisionadorDuende());
-		chozasCreadas++;
+		super(null, ANCHURA, ALTURA,
+				new RecursosEdificio(DIR_SPRITE, 1, RUTA_SONIDO_DESTRUCCION),
+				UtilsDepuracion.colorColisionadorDuende());
 		setControladorVida(new ControladorVida(SALUD_BASE, this));
 		generadorDuendes.iniciaCuenta();
 	}
@@ -47,10 +46,10 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 			return;
 		}
 		EscenaCombate escena = (EscenaCombate) escena();
-		escena.incluyeObj(new DuendePiromano("duende" + duendesGenerados + "-" + nombre()), x() + ANCHO_CHOZA, y() + ALTO_CHOZA - DuendePiromano.ALTURA);
-		duendesGenerados++;
+		escena.incluyeObj(new DuendePiromano(), x() + ANCHURA, y() + ALTURA - DuendePiromano.ALTURA);
+		duendesDentro--;
 		
-		if (duendesGenerados < MAX_DUENDES_TOTAL) {
+		if (duendesDentro > 0) {
 			temporizador.iniciaCuenta(TIEMPO_GENERACION_MS);
 		}
 	}
