@@ -1,6 +1,7 @@
 [sprite_caballero]: resources/knight_blue/idle1.png
 [sprite_duende_piromano]: resources/torch_goblin_red/idle1.png
 [choza_duendes]: resources/goblin_hut/standing1.png
+[jerarquia_entidad]: resources/readme/jerarquia_entidad.png
 
 # Juego de combate medieval
 
@@ -8,8 +9,9 @@ Sencillo juego de combate que utiliza varias características de j2d para crear 
 
 El jugador controla un caballero que debe defenderse de los duendes que salen periódicamente de la choza, ya sea matando a todos los duendes o destruyendo el edificio.
 
-## Jerarquía de clases de `Entidad`
+## Jerarquía de clases de `EntidadFaccion`
 
+![jerarquia_entidad][]
 
 
 ## `Caballero`
