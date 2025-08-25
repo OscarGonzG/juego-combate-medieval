@@ -42,7 +42,7 @@ public abstract class AtacanteMele extends Personaje {
 		case IZQUIERDA -> new Rectangle(centro().x - ALCANCE_ATAQUE_HORIZONTAL, centro().y - ANCHO_ATAQUE / 2, ALCANCE_ATAQUE_HORIZONTAL, ANCHO_ATAQUE);
 		};
 
-		escena().incluyeObj(new AreaDanho(areaDanho.width, areaDanho.height, (int) (PielPersonaje.DURACION_ATAQUE_MS * 0.8f), getDanho(), getFaccion()), areaDanho.x, areaDanho.y);
+		escena().incluyeObj(new AreaDanho(areaDanho.width, areaDanho.height, (int) (RecursosPersonaje.DURACION_ATAQUE_MS * 0.8f), getDanho(), getFaccion()), areaDanho.x, areaDanho.y);
 		return true;
 	}
 	

@@ -15,7 +15,7 @@ import juegoMedieval.Estado.Direccion;
  * Representa un personaje que puede moverse y atacar en 4 direcciones.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 		
@@ -58,11 +58,11 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 		
 		this.estadisticas = estadisticas;
 		this.temporizadorAtaque = new Temporizador(visualizadorCooldownAtaque, 
-				this, PielPersonaje.DURACION_ATAQUE_MS, false,
+				this, RecursosPersonaje.DURACION_ATAQUE_MS, false,
 				TipoCuenta.CUENTA_ASCENDENTE);
 		
 		ControladorVida controladorVida = new ControladorVida(estadisticas.saludBase(), barraVida, piel);
-		controladorVida.configuraAccionesMuerte(PielPersonaje.ANIMACION_MUERTE);
+		controladorVida.configuraAccionesMuerte(RecursosPersonaje.ANIMACION_MUERTE);
 		setControladorVida(controladorVida);
 		
 		int despAdornoX = (anchoX - piel.anchoX()) / 2;
