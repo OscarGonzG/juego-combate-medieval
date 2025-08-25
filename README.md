@@ -3,6 +3,7 @@
 [choza_duendes]: resources/goblin_hut/standing1.png
 [jerarquia_entidad]: resources/readme/jerarquia_entidad.png
 [animaciones]: resources/readme/animaciones.png "Animaciones"
+[caballero_en_juego]: resources/readme/caballero.png
 
 # Juego de combate medieval
 
@@ -28,13 +29,13 @@ En nuestra jerarquía, `ChozaDuende` y `Personaje` inicializan el `ControladorVi
 
 Esta clase se encarga del comportamiento común de todos los personajes: animaciones y ataques.
 
-Con el método `ciclo()`, se comprueba hacia dónde se mueve el personaje e intenta cambiar el `Estado`, que está compuesto por una `Accion` y dos valores `Direccion`, `direccionPrimaria` y `direccionSecundaria`. De este modo, si un personaje se mueve en una trayectoria hacia arriba pero ligeramente inclinada a la derecha, su `Estado` tendrá `CAMINANDO` como acción, `ARRIBA` como dirección primaria y `DERECHA` como dirección secundaria. En caso de que el movimiento esté perfectamente alineado a una dirección, ambos atributos de dirección tendrán ese mismo valor. Si ha podido cambiar el `Estado`, se notifica a `PielPersonaje` para que muestre la animación correspondiente.
+Con el método `ciclo()`, se comprueba hacia dónde se mueve el personaje e intenta cambiar el `Estado`, que está compuesto por una `Accion` y dos valores de tipo `Direccion`, `direccionPrimaria` y `direccionSecundaria`. De este modo, si un personaje se mueve en una trayectoria hacia arriba pero ligeramente inclinada a la derecha, su `Estado` tendrá `CAMINANDO` como acción, `ARRIBA` como dirección primaria y `DERECHA` como dirección secundaria. En caso de que el movimiento esté perfectamente alineado a una dirección, ambos atributos de dirección tendrán ese mismo valor. Si ha podido cambiar el `Estado`, se notifica a `PielPersonaje` para que muestre la animación correspondiente.
 
 `PielPersonaje` utiliza dos niveles de `EnumMap` para mapear cada `Estado` a una animación usando los enumerados `Accion` y `Direccion`. Como solo las animaciones de ataque tienen variantes hacia arriba y abajo, se procede de la siguiente manera:
 
-- Con la acción `ATACANDO`, el `EnumMap<Direccion, Animacion>` se accede con la dirección primaria.
+- Para la acción `ATACANDO`, se accede al `EnumMap<Direccion, Animacion>` con la dirección primaria.
 
-- Con otras acciones:
+- Para otras acciones:
     - Si la dirección primaria es horizontal, se accede con ella al segundo nivel de `EnumMap`.
     - Si la dirección primaria es vertical y la secundaria horizontal, se accede con la dirección secundaria.
     - Si ninguna dirección es horizontal (movimiento perfectamente vertical), se accede usando la constante `DERECHA`.
@@ -42,7 +43,9 @@ Con el método `ciclo()`, se comprueba hacia dónde se mueve el personaje e inte
 
 ![animaciones]
 
-Si el personaje decide llamar al método `ataca()` desde el `Estado` descrito, la `Acción` pasará a ser `ATACANDO` y se bloqueará tanto el cambio de animaciones como los nuevos ataques hasta que finalice el `temporizadorAtaque`. La animación resultante será el ataque hacia arriba porque ahora sí podemos usar la dirección primaria. 
+Si el personaje decide llamar al método `ataca()` desde el `Estado` descrito, la `Acción` pasará a ser `ATACANDO` y se bloqueará tanto el cambio de animaciones como los nuevos ataques hasta que finalice el `temporizadorAtaque`. La animación resultante será el ataque hacia arriba porque ahora sí podemos usar la dirección primaria.
+
+Cuando finalice el `temporizadorAtaque`, el método `ciclo()` podrá devolver al personaje a la animación de la acción `PARADO` o `CAMINANDO` que le corresponda.
 
 ### `AtacanteMele`
 
@@ -52,9 +55,17 @@ Con `super.ataca()` en su método `ataca()`, la clase intenta cambiar el estado 
 
 ### `Caballero`
 
+La clase `Caballero` representa al personaje jugable, un caballero de armadura azul que, utilizando un objeto `GuiaPorRaton`, puede moverse hacia la posición del ratón mientras se mantiene pulsado el botón izquierdo del mismo y que realiza un ataque con su espada .
+
 ![sprite_caballero][]
 
+El sprite del caballero es acompañado por dos visualizadores numéricos. El primero representa la salud de `EntidadFaccion.controladorVida` y el segundo representa el tiempo restante de `Personaje.temporizadorAtaque`. Esta segunda barra está llena cuando se puede realizar un ataque y se vacía la realizarlo, llenándose de nuevo cuando el ataque vuelve a estar disponible.
+
+![caballero_en_juego][]
+
 ### `DuendePiromano`
+
+Es el principal enemigo del juego. Su método `ciclo()` utiliza la `GuiaObjeto` para moverlo hacia el jugador y atacar cuando se acerca lo suficiente.
 
 ![sprite_duende_piromano][]
 
