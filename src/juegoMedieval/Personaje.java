@@ -117,7 +117,7 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 		if (d.equals(estado.direccionPrimaria()) || estaMuerto()) {
 			return false;
 		}
-		cambiaEstado(new Estado(d, estado.accion()));
+		cambiaDireccion(d, d);
 		return true;
 	}
 	
