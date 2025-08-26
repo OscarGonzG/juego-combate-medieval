@@ -7,7 +7,7 @@ import java.awt.Color;
  * durante el juego.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version ago-2025
  */
 public final class UtilsDepuracion {
 	private UtilsDepuracion() {}
@@ -23,11 +23,11 @@ public final class UtilsDepuracion {
 	}
 	
 	public static Color colorColisionadorCaballero() {
-		return modoDepuracion ? Color.BLUE : null;
+		return modoDepuracion ? new Color(0, 100, 255, 100) : null;
 	}
 	
 	public static Color colorColisionadorDuende() {
-		return modoDepuracion ? Color.GREEN : null;
+		return modoDepuracion ? new Color(0, 255, 0, 100) : null;
 	}
 	
 	public static Color colorAreaDanho() {

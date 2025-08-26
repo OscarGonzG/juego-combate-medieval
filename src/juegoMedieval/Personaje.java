@@ -1,7 +1,5 @@
 package juegoMedieval;
 
-import java.awt.Color;
-
 import j2d.JObjeto;
 import j2d.mods.ControladorVida;
 import j2d.mods.ITemporizado;
@@ -52,8 +50,8 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 					 EstadisticasPersonaje estadisticas,
 					 IVisualizadorNumerico barraVida,
 					 IVisualizadorNumerico visualizadorCooldownAtaque,
-					 RecursosPersonaje recursos, Color colorColisionador) {
-		super(nombre, anchoX, altoY, colorColisionador);
+					 RecursosPersonaje recursos) {
+		super(nombre, anchoX, altoY, recursos.colorColisionador());
 		this.piel = new PielPersonaje(nombre + ".piel", recursos);
 		
 		this.estadisticas = estadisticas;
@@ -84,8 +82,8 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 	 */
 	protected Personaje(String nombre, int anchoX, int altoY,
 						EstadisticasPersonaje estadisticas,
-						RecursosPersonaje recursos, Color colorColisionador) {
-		this(nombre, anchoX, altoY, estadisticas, null, null, recursos, colorColisionador);
+						RecursosPersonaje recursos) {
+		this(nombre, anchoX, altoY, estadisticas, null, null, recursos);
 	}
 	
 	protected JObjeto getVisualizadorRefrescoAtaque() {

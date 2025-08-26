@@ -22,7 +22,9 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	private static final String RUTA_SONIDO_ATAQUE = "resources/sounds/attacks/sword_attack.wav";
 	private static final String[] RUTAS_SONIDOS_PASO = {"resources/sounds/walking/dirt_chain_walk3.wav", "resources/sounds/walking/dirt_chain_walk2.wav"};
 	
-	private static final RecursosPersonaje RECURSOS = new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO);
+	private static final RecursosPersonaje RECURSOS = new RecursosPersonaje(
+			DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO,
+			UtilsDepuracion.colorColisionadorCaballero());
 	
 	private static final int INDICE_Z = 30;	
 	
@@ -50,7 +52,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 						SALUD_BASE, Color.RED, Color.BLACK),
 			new JObjetoVisNumBarra(ANCHURA, ALTURA_BARRAS_ESTADO,
 					RecursosPersonaje.DURACION_ATAQUE_MS, Color.YELLOW, Color.YELLOW),
-			RECURSOS, UtilsDepuracion.colorColisionadorCaballero());
+			RECURSOS);
 		asignaZ(INDICE_Z);
 		barraVida = getVisualizadorVida();
 		barraRefescoAtaque = getVisualizadorRefrescoAtaque();

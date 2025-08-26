@@ -12,10 +12,13 @@ import juegoMedieval.utils.UtilsDepuracion;
 public class DuendePiromano extends AtacanteMele {
 	
 	private static final int INDICE_Z = 20;
-	private static final String DIR_SPRITES = "resources/torch_goblin_red/"; 
-	private static final String RUTA_SONIDO_ATAQUE = "resources/sounds/attacks/torch_attack.wav";
+	private static final String DIR_SPRITES = "resources/torch_goblin_red/";
+	private static final String RUTA_SONIDO_ATAQUE =
+			"resources/sounds/attacks/torch_attack.wav";
 	
-	private static final RecursosPersonaje RECURSOS = new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE);
+	private static final RecursosPersonaje RECURSOS =
+			new RecursosPersonaje(DIR_SPRITES, RUTA_SONIDO_ATAQUE,
+					UtilsDepuracion.colorColisionadorDuende());
 	
 	
 	public static final int ALTURA = 80;
@@ -28,9 +31,8 @@ public class DuendePiromano extends AtacanteMele {
 	private EntidadFaccion objetivo;
 	
 	public DuendePiromano() {
-		super(null, ANCHURA, ALTURA,
-				new EstadisticasPersonaje(SALUD_BASE, DANHO_BASE, VELOCIDAD_BASE),
-				RECURSOS, UtilsDepuracion.colorColisionadorDuende());
+		super(null, ANCHURA, ALTURA, new EstadisticasPersonaje(SALUD_BASE,
+				DANHO_BASE, VELOCIDAD_BASE), RECURSOS);
 		asignaZ(INDICE_Z);
 	}
 
