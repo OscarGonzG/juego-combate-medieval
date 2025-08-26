@@ -1,14 +1,8 @@
 package juegoMedieval;
 
-import java.awt.Color;
-import java.awt.Image;
-
 import j2d.JObjetoIcono;
 import j2d.mods.IVidaControlada;
 import j2d.utils.Animacion;
-import j2d.utils.Diapositiva;
-import j2d.utils.ImagenesUtils;
-import j2d.utils.Sonido;
 
 /**
  * Representa un edificio de una faccion.
@@ -19,27 +13,27 @@ import j2d.utils.Sonido;
 public abstract class Edificio extends EntidadFaccion implements IVidaControlada {
 	
 	private static final int INDICE_Z = 10;
-	private static final int DURACION_FRAME_MS = 100;
 
 	private JObjetoIcono iconoEdificio;
-	private final Image imagenDestruido;
-	private final Sonido sonidoDestruido;
+	private final RecursosEdificio recursos;
 
-	protected Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos, Color colorColisionador) {
-		super(nombre, anchoX, altoY, colorColisionador);
-		this.imagenDestruido = ImagenesUtils.creaImagen(recursos.directorioSprites() + "destroyed.png");
-		this.sonidoDestruido = new Sonido(recursos.rutaSonidoDestruccion());
-		
-		iconoEdificio = new JObjetoIcono(nombre + ".icono", recursos.directorioSprites() + "standing1.png");
-		if (recursos.numSpritesAnimacion() > 1) {
-			Diapositiva[] diapositivas = new Diapositiva[recursos.numSpritesAnimacion()];
-			
-			for (int i = 1; i <= recursos.numSpritesAnimacion(); i++) {
-				diapositivas[i - 1] = new Diapositiva(ImagenesUtils.creaImagen(recursos.directorioSprites() + "standing" + i + ".png"), 1, DURACION_FRAME_MS);
-			}
-			
-			iconoEdificio.animador().reproduce(new Animacion(true, diapositivas));
+	/**
+	 * Crea un edificio.
+	 * @param nombre nombre del edificio.
+	 * @param anchoX anchura del aedificio.
+	 * @param altoY altura del edificio.
+	 * @param recursos recursos graficos y de audio del edificio.
+	 * @param colorColisionador color del colisionador.
+	 */
+	protected Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos) {
+		super(nombre, anchoX, altoY, recursos.colorColisionador());
+		this.recursos = recursos;
+		iconoEdificio = new JObjetoIcono(nombre + ".icono", recursos.icono(), 1);
+		Animacion animacion = recursos.animacion();
+		if (animacion != null) {
+			iconoEdificio.animador().reproduce(animacion);
 		}
+		
 		int despAdornoX = (anchoX - iconoEdificio.anchoX()) / 2;
 		int despAdornoY = (altoY - iconoEdificio.altoY()) / 2;
 		adornoAnhade(iconoEdificio, despAdornoX, despAdornoY);
@@ -54,18 +48,19 @@ public abstract class Edificio extends EntidadFaccion implements IVidaControlada
 
 	@Override
 	public void recuperaVida(float incrementoVida) {
-		// TODO Auto-generated method stub
+		// metodo innecesario
 	}
 
 	@Override
 	public void vidaAgotada() {
-		sonidoDestruido.suena();
-		iconoEdificio.cambiaImagen(imagenDestruido);
+		recursos.sonidoDestruccion().suena();
+		iconoEdificio.cambiaImagen(recursos.iconoDestruido());
+		iconoEdificio.animador().finalizaAnimacion();
 		muere();
 	}
 
 	@Override
 	public void finalizaAnimacionMuerte() {
-		// TODO Auto-generated method stub
+		// metodo innecesario
 	}
 }
