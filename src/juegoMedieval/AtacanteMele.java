@@ -1,6 +1,5 @@
 package juegoMedieval;
 
-import java.awt.Color;
 import java.awt.Rectangle;
 
 import j2d.mods.IVisualizadorNumerico;
@@ -17,17 +16,18 @@ public abstract class AtacanteMele extends Personaje {
 	private static final int ALCANCE_ATAQUE_HORIZONTAL = 90;
 	private static final int ANCHO_ATAQUE = 120;
 
-	protected AtacanteMele(String nombre, int anchoX, int altoY, EstadisticasPersonaje estadisticas, RecursosPersonaje recursos,
-			Color colorColisionador) {
-		this(nombre, anchoX, altoY, estadisticas, null, null, recursos, colorColisionador);
+	protected AtacanteMele(String nombre, int anchoX, int altoY,
+			EstadisticasPersonaje estadisticas, RecursosPersonaje recursos) {
+		this(nombre, anchoX, altoY, estadisticas, null, null, recursos);
 	}
 	
 	protected AtacanteMele(String nombre, int anchoX, int altoY,
 						EstadisticasPersonaje estadisticas,
 						IVisualizadorNumerico barraVida,
 						IVisualizadorNumerico visualizadorCooldownAtaque,
-						RecursosPersonaje recursos, Color colorColisionador) {
-		super(nombre, anchoX, altoY, estadisticas, barraVida, visualizadorCooldownAtaque, recursos, colorColisionador);
+						RecursosPersonaje recursos) {
+		super(nombre, anchoX, altoY, estadisticas, barraVida,
+				visualizadorCooldownAtaque, recursos);
 	}
 
 	@Override

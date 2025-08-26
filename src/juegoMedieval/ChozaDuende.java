@@ -14,7 +14,11 @@ import juegoMedieval.utils.UtilsDepuracion;
 public class ChozaDuende extends Edificio implements ITemporizado {
 
 	private static final String DIR_SPRITE = "resources/goblin_hut/";
-	private static final String RUTA_SONIDO_DESTRUCCION = "resources/sounds/building/wood_collapse.wav";
+	private static final String RUTA_SONIDO_DESTRUCCION =
+			"resources/sounds/building/wood_collapse.wav";
+	private static final RecursosEdificio RECURSOS =
+			new RecursosEdificio(DIR_SPRITE, 1, RUTA_SONIDO_DESTRUCCION,
+					UtilsDepuracion.colorColisionadorDuende());
 
 	public static int ANCHURA = 100;
 	public static int ALTURA = 135;
@@ -25,12 +29,11 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 	
 	private int duendesDentro = 4; // Duendes restantes en esta choza
 	
-	private Temporizador generadorDuendes = new Temporizador(TIEMPO_PRIMERA_GENERACION_MS, this);
+	private Temporizador generadorDuendes = 
+			new Temporizador(TIEMPO_PRIMERA_GENERACION_MS, this);
 	
 	public ChozaDuende() {
-		super(null, ANCHURA, ALTURA,
-				new RecursosEdificio(DIR_SPRITE, 1, RUTA_SONIDO_DESTRUCCION),
-				UtilsDepuracion.colorColisionadorDuende());
+		super(null, ANCHURA, ALTURA, RECURSOS);
 		setControladorVida(new ControladorVida(SALUD_BASE, this));
 		generadorDuendes.iniciaCuenta();
 	}
@@ -46,7 +49,8 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 			return;
 		}
 		EscenaCombate escena = (EscenaCombate) escena();
-		escena.incluyeObj(new DuendePiromano(), x() + ANCHURA, y() + ALTURA - DuendePiromano.ALTURA);
+		escena.incluyeObj(new DuendePiromano(),
+				x() + ANCHURA, y() + ALTURA - DuendePiromano.ALTURA);
 		duendesDentro--;
 		
 		if (duendesDentro > 0) {

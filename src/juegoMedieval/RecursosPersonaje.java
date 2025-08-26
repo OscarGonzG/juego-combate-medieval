@@ -1,5 +1,6 @@
 package juegoMedieval;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.util.EnumMap;
 
@@ -18,7 +19,6 @@ import juegoMedieval.Estado.Direccion;
  */
 public class RecursosPersonaje {
 	
-	private final EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<>(Accion.class);
 	public static final Animacion ANIMACION_MUERTE = cargaAnimacionMuerte();
 	private static final String DIR_ANIMACIONES_MUERTE = "resources/death/";
 	
@@ -27,6 +27,10 @@ public class RecursosPersonaje {
 	private static final int DURACION_FRAME_MS = 100;
 	public static final int DURACION_ATAQUE_MS = DURACION_FRAME_MS * FRAMES_ANIMACION_ACCION;
 	
+
+	private final EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion = new EnumMap<>(Accion.class);
+	private final Color colorColisionador;
+	
 	/**
 	 * Crea un objeto de recursos.
 	 * @param dirSprites ruta al directorio en el que se encuentran los
@@ -34,8 +38,12 @@ public class RecursosPersonaje {
 	 * @param rutaSonidoAtaque ruta al fichero que contiene el sonido de ataque.
 	 * @param rutasSonidosPaso rutas de los 2 ficheros que contienen sonidos de
 	 * paso.
+	 * @param colorColisionador color del colisionador o {@code null} para que
+	 * sea transparente.
 	 */
-	public RecursosPersonaje(String dirSprites, String rutaSonidoAtaque, String[] rutasSonidosPaso) {
+	public RecursosPersonaje(String dirSprites, String rutaSonidoAtaque,
+			String[] rutasSonidosPaso, Color colorColisionador) {
+		this.colorColisionador = colorColisionador;
 		// Crea las animaciones
 		Diapositiva[] paradoDerecha = new Diapositiva[FRAMES_ANIMACION_ACCION];
 		Diapositiva[] paradoIzquierda = new Diapositiva[FRAMES_ANIMACION_ACCION];
@@ -102,8 +110,8 @@ public class RecursosPersonaje {
 	 * @param directorioSprites
 	 * @param rutaSonidoAtaque
 	 */
-	public RecursosPersonaje(String directorioSprites, String rutaSonidoAtaque) {
-		this(directorioSprites, rutaSonidoAtaque, null);
+	public RecursosPersonaje(String directorioSprites, String rutaSonidoAtaque, Color colorColisionador) {
+		this(directorioSprites, rutaSonidoAtaque, null, colorColisionador);
 	}
 	
 	public Image icono() {
@@ -127,5 +135,15 @@ public class RecursosPersonaje {
 		}
 		
 		return new Animacion(muerte);
+	}
+	
+	/**
+	 * Devuelve el color del colisionador del personaje o {@code null} si el
+	 * colisionador debe ser transparente.
+	 * @return el color del colisionador del personaje o {@code null} si el
+	 * colisionador debe ser transparente.
+	 */
+	public Color colorColisionador() {
+		return colorColisionador;
 	}
 }
