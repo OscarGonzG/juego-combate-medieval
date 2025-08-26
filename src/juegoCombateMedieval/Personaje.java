@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import j2d.JObjeto;
 import j2d.mods.ControladorVida;
@@ -6,8 +6,8 @@ import j2d.mods.ITemporizado;
 import j2d.mods.IVisualizadorNumerico;
 import j2d.mods.Temporizador;
 import j2d.mods.Temporizador.TipoCuenta;
-import juegoMedieval.Estado.Accion;
-import juegoMedieval.Estado.Direccion;
+import juegoCombateMedieval.Estado.Accion;
+import juegoCombateMedieval.Estado.Direccion;
 
 /**
  * Representa un personaje que puede moverse y atacar en 4 direcciones.

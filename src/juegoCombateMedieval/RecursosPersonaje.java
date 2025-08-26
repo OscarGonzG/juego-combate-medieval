@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -8,8 +8,8 @@ import j2d.utils.Animacion;
 import j2d.utils.Diapositiva;
 import j2d.utils.ImagenesUtils;
 import j2d.utils.Sonido;
-import juegoMedieval.Estado.Accion;
-import juegoMedieval.Estado.Direccion;
+import juegoCombateMedieval.Estado.Accion;
+import juegoCombateMedieval.Estado.Direccion;
 
 /**
  * Guarda los recursos graficos y de audio de un personaje.

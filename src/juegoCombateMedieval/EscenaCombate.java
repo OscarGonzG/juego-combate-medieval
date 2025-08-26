@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 
 

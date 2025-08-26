@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import java.awt.Color;
 import java.util.Random;

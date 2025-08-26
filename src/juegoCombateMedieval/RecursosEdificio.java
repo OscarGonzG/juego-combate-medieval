@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -26,26 +26,26 @@ public class RecursosEdificio {
 
 	/**
 	 * Crea un objeto de recursos de un edificio.
-	 * @param directorioSprites directorio donde se encuentran los sprites del
+	 * @param dirSprites directorio donde se encuentran los sprites del
 	 * edificio.
-	 * @param numSpritesAnimacion numero de sprites que componen la animacion
+	 * @param numSprites numero de sprites que componen la animacion
 	 * del edificio o 1 si no hay animacion.
 	 * @param rutaSonidoDestruccion ruta al fichero que contiene el sonido de
 	 * destruccion del edificio.
 	 * @param colorColisionador color del colisionador o {@code null} para que
 	 * sea transparente.
 	 */
-	public RecursosEdificio (String directorioSprites, int numSpritesAnimacion,
+	public RecursosEdificio (String dirSprites, int numSprites,
 			String rutaSonidoDestruccion, Color colorColisionador) {
 		this.colorColisionador = colorColisionador;
 		sonidoDestruccion = new Sonido(rutaSonidoDestruccion);
-		icono = ImagenesUtils.creaImagen(directorioSprites + "standing1.png");
-		iconoDestruido = ImagenesUtils.creaImagen(directorioSprites + "destroyed.png");
-		if (numSpritesAnimacion > 1) {
-			Diapositiva[] diapositivas = new Diapositiva[numSpritesAnimacion];
+		icono = ImagenesUtils.creaImagen(dirSprites + "standing1.png");
+		iconoDestruido = ImagenesUtils.creaImagen(dirSprites + "destroyed.png");
+		if (numSprites > 1) {
+			Diapositiva[] diapositivas = new Diapositiva[numSprites];
 			diapositivas[0] = new Diapositiva(icono, 1, DURACION_FRAME_MS);
-			for (int i = 1; i <= numSpritesAnimacion; i++) {
-				diapositivas[i - 1] = new Diapositiva(ImagenesUtils.creaImagen(directorioSprites + "standing" + i + ".png"), 1, DURACION_FRAME_MS);
+			for (int i = 1; i <= numSprites; i++) {
+				diapositivas[i - 1] = new Diapositiva(ImagenesUtils.creaImagen(dirSprites + "standing" + i + ".png"), 1, DURACION_FRAME_MS);
 			}
 			
 			animacion = new Animacion(true, diapositivas);

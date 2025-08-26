@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 /**
  * Representa un estado del personaje, compuesto por la direccion a la que esta

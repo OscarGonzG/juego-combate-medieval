@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import j2d.Juego;
 import juegoMedieval.utils.UtilsDepuracion;

@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import j2d.JObjetoIcono;
 import j2d.mods.IVidaControlada;

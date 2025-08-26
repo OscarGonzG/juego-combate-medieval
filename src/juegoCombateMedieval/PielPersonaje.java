@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 
 import java.util.EnumMap;
@@ -7,8 +7,8 @@ import j2d.JObjeto;
 import j2d.JObjetoIcono;
 import j2d.mods.IVidaControlada;
 import j2d.utils.Animacion;
-import juegoMedieval.Estado.Accion;
-import juegoMedieval.Estado.Direccion;
+import juegoCombateMedieval.Estado.Accion;
+import juegoCombateMedieval.Estado.Direccion;
 
 /**
  * Representa la "piel" de un personaje, es decir, su parte visible. Se encarga

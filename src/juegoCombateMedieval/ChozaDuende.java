@@ -1,4 +1,4 @@
-package juegoMedieval;
+package juegoCombateMedieval;
 
 import j2d.mods.ControladorVida;
 import j2d.mods.ITemporizado;
