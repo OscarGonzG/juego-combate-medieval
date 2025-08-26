@@ -1,9 +1,11 @@
-[sprite_caballero]: resources/knight_blue/idle1.png
-[sprite_duende_piromano]: resources/torch_goblin_red/idle1.png
-[choza_duendes]: resources/goblin_hut/standing1.png
-[jerarquia_entidad]: resources/readme/jerarquia_entidad.png
-[animaciones]: resources/readme/animaciones.png "Animaciones"
-[caballero_en_juego]: resources/readme/caballero.png
+[sprite_caballero]: resources/knight_blue/idle1.png "Caballero"
+[sprite_duende_piromano]: resources/torch_goblin_red/idle1.png "Duende pirómano"
+[choza_duendes]: resources/goblin_hut/standing1.png "Choza de duendes"
+[choza_destruida]: resources/goblin_hut/destroyed.png "Choza destruída"
+[jerarquia_entidad]: resources/readme/jerarquia_entidad.png "Diagrama de clases UML"
+[animaciones]: resources/readme/animaciones.png "Animaciones de personaje"
+[caballero_en_juego]: resources/readme/caballero.png "Caballero en el juego"
+[caballero_atacando]: resources/readme/caballero_atacando.png "Caballero atacando"
 
 # Juego de combate medieval
 
@@ -63,6 +65,8 @@ El sprite del caballero es acompañado por dos visualizadores numéricos. El pri
 
 ![caballero_en_juego][]
 
+![caballero_atacando][]
+
 ### `DuendePiromano`
 
 Es el principal enemigo del juego. Su método `ciclo()` utiliza la `GuiaObjeto` para moverlo hacia el jugador y atacar cuando se acerca lo suficiente.
@@ -71,6 +75,13 @@ Es el principal enemigo del juego. Su método `ciclo()` utiliza la `GuiaObjeto` 
 
 ### `Edificio`
 
+`Edificio` es la clase base para un edificio que puede estar representado por un icono o una animación base y que puede ser destruido, lo cual reproduce un sonido y cambia su icono.
+
+Al igual que `Personaje`, es un `JObjetoRectangulo` que tiene un `JObjetoIcono` como adorno, siendo en este caso una instancia de la propia clase `JObjetoIcono` y no una subclase como `PielPersonaje`.
+
 ### `ChozaDuende`
 
+La choza es un edificio que genera duendes periódicamente usando un `Temporizador`. Puede generar un total de hasta 4 duendes, aunque la generación puede ser interrumpida si es destruída.
+
 ![choza_duendes][]
+![choza_destruida][]
