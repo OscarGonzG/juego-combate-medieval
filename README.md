@@ -13,9 +13,38 @@ Sencillo juego de combate que utiliza varias características de j2d para crear 
 
 El jugador controla un caballero que debe defenderse de los duendes que salen periódicamente de la choza, ya sea matando a todos los duendes o destruyendo el edificio.
 
+## Créditos
+
+- Sprites
+  - Autor: [Pixel Frog](https://pixelfrog-assets.itch.io/)
+  - Pertenece a la versión antigua del pack [Tiny Swords](https://pixelfrog-assets.itch.io/tiny-swords)
+  - Licencia: [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+- Sonidos de paso
+    - [Grass Step Left](https://freesound.org/s/535220/) y [Grass Step Right](https://freesound.org/s/535222/)
+    - Autor: spycrah
+    - Licencias: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+- Sonido de ataque con antorcha
+    - [Torch Swing.wav](https://freesound.org/s/472687/)
+    - Autor: SilverIllusionist
+    - Licencia: [Attribution 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+- Sonido de ataque con espada
+    - [Basic Melee Swing / Miss / Whoosh](https://freesound.org/s/420668/)
+    - Autor: SypherZent
+    - Licencia: [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
+- Sonido de destrucción de choza
+    - [Wood Break.wav](https://freesound.org/s/443293/)
+    - Autor: Deathscyp
+    - Licencia: [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+
 ## Jerarquía de clases de `EntidadFaccion`
 
 ![jerarquia_entidad][]
+
+`EntidadFaccion` representa un personaje o edificio que pertenece a una facción (`CABALLEROS` o `DUENDES`) y puede ser dañado por facciones enemigas. Al incluirse en una `EscenaCombate`, la `EntidadFaccion` se registra desde su método `objetoIncluido()` para que pueda ser golpeada.
 
 ### Controlador de vida
 

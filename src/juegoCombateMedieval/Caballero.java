@@ -20,7 +20,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	
 	private static final String DIR_SPRITES = "resources/knight_blue/";
 	private static final String RUTA_SONIDO_ATAQUE = "resources/sounds/attacks/sword_attack.wav";
-	private static final String[] RUTAS_SONIDOS_PASO = {"resources/sounds/walking/dirt_chain_walk3.wav", "resources/sounds/walking/dirt_chain_walk2.wav"};
+	private static final String[] RUTAS_SONIDOS_PASO = {"resources/sounds/walking/step1.wav", "resources/sounds/walking/step2.wav"};
 	
 	private static final RecursosPersonaje RECURSOS = new RecursosPersonaje(
 			DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO,
