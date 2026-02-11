@@ -1,3 +1,4 @@
+[captura]: resources/readme/screenshot.png
 [sprite_caballero]: resources/knight_blue/idle1.png "Caballero"
 [sprite_duende_piromano]: resources/torch_goblin_red/idle1.png "Duende pirómano"
 [choza_duendes]: resources/goblin_hut/standing1.png "Choza de duendes"
@@ -12,6 +13,8 @@
 Sencillo juego de combate que utiliza varias características de j2d para crear un proyecto cohesionado.
 
 El jugador controla un caballero que debe defenderse de los duendes que salen periódicamente de la choza, ya sea matando a todos los duendes o destruyendo el edificio.
+
+![captura][]
 
 ## Créditos
 
