@@ -16,7 +16,7 @@ import j2d.utils.ImagenesUtils;
  * Representa una escena del juego de combate medieval.
  * 
  * @author Oscar Gonzalez Garcia
- * @version jun-2025
+ * @version may-2026
  */
 public class EscenaCombate extends JEscena {
 	
@@ -28,9 +28,9 @@ public class EscenaCombate extends JEscena {
 		poneTexturaFondo(ImagenesUtils.creaImagen("resources/terrain/flat/green_middle.png"), 1);
 		asignaGravedad(1);
 		
-		incluyeObj(new ChozaDuende(), 50, 50);
+		incluyeObj(new ChozaDuende(this), 50, 50);
 		
-		Caballero jugador = new Caballero("jugador");
+		Caballero jugador = new Caballero("jugador", this);
 		incluyeObj(jugador, Juego.anchoPixelsX() / 2, Juego.altoPixelsY() / 2);
 	}
 	

@@ -7,11 +7,10 @@ import juegoMedieval.utils.UtilsDepuracion;
  * Duende enemigo que persigue y ataca al jugador.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public class DuendePiromano extends AtacanteMele {
 	
-	private static final int INDICE_Z = 20;
 	private static final String DIR_SPRITES = "resources/torch_goblin_red/";
 	private static final String RUTA_SONIDO_ATAQUE =
 			"resources/sounds/attacks/torch_attack.wav";
@@ -30,10 +29,9 @@ public class DuendePiromano extends AtacanteMele {
 
 	private EntidadFaccion objetivo;
 	
-	public DuendePiromano() {
+	public DuendePiromano(EscenaCombate escena) {
 		super(null, ANCHURA, ALTURA, new EstadisticasPersonaje(SALUD_BASE,
-				DANHO_BASE, VELOCIDAD_BASE), RECURSOS);
-		asignaZ(INDICE_Z);
+				DANHO_BASE, VELOCIDAD_BASE), RECURSOS, escena);
 	}
 
 	@Override
@@ -66,5 +64,10 @@ public class DuendePiromano extends AtacanteMele {
 		} else {
 			guia.finalizaSeguimiento();
 		}
+	}
+
+	@Override
+	public RecursosPersonaje getRecursosPersonaje() {
+		return RECURSOS;
 	}
 }

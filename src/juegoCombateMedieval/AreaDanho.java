@@ -12,11 +12,10 @@ import juegoMedieval.utils.UtilsDepuracion;
  * indicado desde su inclusion en la escena y despues se elimina de la escena.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public class AreaDanho extends JObjetoRectangulo implements ITemporizado {
 
-	private static final int INDICE_Z = 40;
 	private static int contadorAreasDanho = 0;
 	private final Temporizador temporizador;
 
@@ -43,7 +42,6 @@ public class AreaDanho extends JObjetoRectangulo implements ITemporizado {
 		asignaFactorGravedad(0);
 		temporizador = new Temporizador(tiempoMs, this);
 		temporizador.iniciaCuenta();
-		asignaZ(INDICE_Z);
 	}
 
 	@Override
@@ -55,6 +53,7 @@ public class AreaDanho extends JObjetoRectangulo implements ITemporizado {
 				continue;
 			}
 			e.getControladorVida().quitaVida(danho);
+			System.out.println(e.nombre() + ": " + e.getControladorVida().vidaRestante());
 		}
 		escena.eliminaObj(this);
 	}

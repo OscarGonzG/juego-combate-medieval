@@ -3,7 +3,6 @@ package juegoCombateMedieval;
 
 import java.util.EnumMap;
 
-import j2d.JObjeto;
 import j2d.JObjetoIcono;
 import j2d.mods.IVidaControlada;
 import j2d.utils.Animacion;
@@ -17,20 +16,22 @@ import juegoCombateMedieval.Estado.Direccion;
  * Cada animacion se corresponde a uno o varios {@link Estado estados}.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public class PielPersonaje extends JObjetoIcono implements IVidaControlada {
 	
 	private final EnumMap<Accion, EnumMap<Direccion, Animacion>> animacionesAccion;
+	private final Personaje personaje;
 	
 	/**
 	 * Crea una piel de personaje.
 	 * @param nombre nombre del objeto.
-	 * @param recursos recursos del personaje.
+	 * @param personaje personaje al que pertenece esta piel.
 	 */
-	public PielPersonaje(String nombre, RecursosPersonaje recursos) {
-  		super(nombre, recursos.icono(), 1);
-  		animacionesAccion = recursos.animacionesAccion();
+	public PielPersonaje(String nombre, Personaje personaje) {
+  		super(nombre, personaje.getRecursosPersonaje().icono(), 1);
+  		this.personaje = personaje;
+  		animacionesAccion = personaje.getRecursosPersonaje().animacionesAccion();
 	}
 	
 	/**
@@ -52,8 +53,8 @@ public class PielPersonaje extends JObjetoIcono implements IVidaControlada {
 
 	@Override
 	public void pierdeVida(float decrementoVida) {
-		escena().incluyeObj(new IndicadorDanho((int) decrementoVida),
-				objMaestro().centro().x, objMaestro().centro().y);
+		personaje.escena().incluyeObj(new IndicadorDanho((int) decrementoVida),
+				personaje.centro().x, personaje.centro().y);
 	}
 
 	@Override
@@ -63,12 +64,11 @@ public class PielPersonaje extends JObjetoIcono implements IVidaControlada {
 
 	@Override
 	public void vidaAgotada() {
-		((Personaje) objMaestro()).muere();
+		personaje.muere();
 	}
 
 	@Override
 	public void finalizaAnimacionMuerte() {
-		JObjeto personaje = objMaestro();
 		personaje.escena().eliminaObj(personaje);
 	}
 	

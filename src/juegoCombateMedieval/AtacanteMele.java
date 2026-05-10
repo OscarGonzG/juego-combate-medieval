@@ -8,7 +8,7 @@ import j2d.mods.IVisualizadorNumerico;
  * Representa un personaje que combate cuerpo a cuerpo.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public abstract class AtacanteMele extends Personaje {
 	
@@ -17,17 +17,18 @@ public abstract class AtacanteMele extends Personaje {
 	private static final int ANCHO_ATAQUE = 120;
 
 	protected AtacanteMele(String nombre, int anchoX, int altoY,
-			EstadisticasPersonaje estadisticas, RecursosPersonaje recursos) {
-		this(nombre, anchoX, altoY, estadisticas, null, null, recursos);
+			EstadisticasPersonaje estadisticas, RecursosPersonaje recursos,
+			EscenaCombate escena) {
+		this(nombre, anchoX, altoY, estadisticas, null, null, recursos, escena);
 	}
 	
 	protected AtacanteMele(String nombre, int anchoX, int altoY,
 						EstadisticasPersonaje estadisticas,
 						IVisualizadorNumerico barraVida,
 						IVisualizadorNumerico visualizadorCooldownAtaque,
-						RecursosPersonaje recursos) {
+						RecursosPersonaje recursos, EscenaCombate escena) {
 		super(nombre, anchoX, altoY, estadisticas, barraVida,
-				visualizadorCooldownAtaque, recursos);
+				visualizadorCooldownAtaque, recursos, escena);
 	}
 
 	@Override

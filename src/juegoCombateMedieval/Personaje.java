@@ -13,7 +13,7 @@ import juegoCombateMedieval.Estado.Direccion;
  * Representa un personaje que puede moverse y atacar en 4 direcciones.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 		
@@ -50,9 +50,9 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 					 EstadisticasPersonaje estadisticas,
 					 IVisualizadorNumerico barraVida,
 					 IVisualizadorNumerico visualizadorCooldownAtaque,
-					 RecursosPersonaje recursos) {
-		super(nombre, anchoX, altoY, recursos.colorColisionador());
-		this.piel = new PielPersonaje(nombre + ".piel", recursos);
+					 RecursosPersonaje recursos, EscenaCombate escena) {
+		super(nombre, anchoX, altoY, recursos.colorColisionador(), escena);
+		this.piel = new PielPersonaje(nombre + ".piel", this);
 		
 		this.estadisticas = estadisticas;
 		this.temporizadorAtaque = new Temporizador(visualizadorCooldownAtaque, 
@@ -82,9 +82,11 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 	 */
 	protected Personaje(String nombre, int anchoX, int altoY,
 						EstadisticasPersonaje estadisticas,
-						RecursosPersonaje recursos) {
-		this(nombre, anchoX, altoY, estadisticas, null, null, recursos);
+						RecursosPersonaje recursos, EscenaCombate escena) {
+		this(nombre, anchoX, altoY, estadisticas, null, null, recursos, escena);
 	}
+	
+	public abstract RecursosPersonaje getRecursosPersonaje();
 	
 	protected JObjeto getVisualizadorRefrescoAtaque() {
 		return temporizadorAtaque.objVisualizador();

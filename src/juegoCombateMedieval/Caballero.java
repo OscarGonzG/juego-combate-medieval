@@ -8,13 +8,14 @@ import j2d.mods.GuiaPorRaton;
 import j2d.mods.IGuiadoPorRaton;
 import j2d.mods.JObjetoVisNumBarra;
 import j2d.mods.Temporizador;
+import j2d.utils.Vector2D;
 import juegoMedieval.utils.UtilsDepuracion;
 
 /**
  * Caballero controlado por el jugador.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	
@@ -25,8 +26,6 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	private static final RecursosPersonaje RECURSOS = new RecursosPersonaje(
 			DIR_SPRITES, RUTA_SONIDO_ATAQUE, RUTAS_SONIDOS_PASO,
 			UtilsDepuracion.colorColisionadorCaballero());
-	
-	private static final int INDICE_Z = 30;	
 	
 	private GuiaPorRaton guiaRaton;
 	
@@ -45,21 +44,20 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	private final JObjeto barraRefescoAtaque;
 	
 	
-	public Caballero(String nombre) {
+	public Caballero(String nombre, EscenaCombate escena) {
 		super(nombre, ANCHURA, ALTURA,
 			new EstadisticasPersonaje(SALUD_BASE, DANHO_BASE, VELOCIDAD_BASE),
 			new JObjetoVisNumBarra(ANCHURA, ALTURA_BARRAS_ESTADO,
 						SALUD_BASE, Color.RED, Color.BLACK),
 			new JObjetoVisNumBarra(ANCHURA, ALTURA_BARRAS_ESTADO,
 					RecursosPersonaje.DURACION_ATAQUE_MS, Color.YELLOW, Color.YELLOW),
-			RECURSOS);
-		asignaZ(INDICE_Z);
+			RECURSOS, escena);
 		barraVida = getVisualizadorVida();
 		barraRefescoAtaque = getVisualizadorRefrescoAtaque();
 		adornoAnhade(barraRefescoAtaque, 0, 0);
 		adornoAnhade(barraVida, 0, (int) (- 1.5 * ALTURA_BARRAS_ESTADO));
 		guiaRaton = new GuiaPorRaton(this, VELOCIDAD_BASE, DIST_RATON_PARADA);
-		asignaZ(INDICE_Z);
+		escena.controladoRatonAnhade(guiaRaton);
 	}
 	
 
@@ -71,7 +69,8 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	@Override
 	public void pulsadoBotonDerecho(Point p) {
 		ataca();
-		guiaRaton.pausaGuia();
+		guiaRaton.finalizaGuiado();
+		asignaVel(new Vector2D(0, 0));
 	}
 
 	@Override
@@ -83,7 +82,7 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	public void muere() {
 		super.muere();
 		escena().controladoRatonElimina(guiaRaton);
-		guiaRaton.pausaGuia();
+		guiaRaton.finalizaGuiado();
 		adornoElimina(barraVida);
 		adornoElimina(barraRefescoAtaque);
 	}
@@ -98,13 +97,13 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 		super.finTiempo(temporizador);
 		if (!estaMuerto()) {
 			// Si ataca justo antes de morir, no debemos volver a anhadir la guia
-			guiaRaton.reanudaGuia();		
+			guiaRaton.asignaObjetoGuiado(this);
+			asignaVel(new Vector2D(0, 0));
 		}
 	}
 	
 	@Override
-	public void objetoIncluido() {
-		super.objetoIncluido();
-		escena().controladoRatonAnhade(guiaRaton);
+	public RecursosPersonaje getRecursosPersonaje() {
+		return RECURSOS;
 	}
 }

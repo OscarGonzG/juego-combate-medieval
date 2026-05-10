@@ -8,11 +8,9 @@ import j2d.utils.Animacion;
  * Representa un edificio de una faccion.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public abstract class Edificio extends EntidadFaccion implements IVidaControlada {
-	
-	private static final int INDICE_Z = 10;
 
 	private JObjetoIcono iconoEdificio;
 	private final RecursosEdificio recursos;
@@ -25,8 +23,8 @@ public abstract class Edificio extends EntidadFaccion implements IVidaControlada
 	 * @param recursos recursos graficos y de audio del edificio.
 	 * @param colorColisionador color del colisionador.
 	 */
-	protected Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos) {
-		super(nombre, anchoX, altoY, recursos.colorColisionador());
+	protected Edificio(String nombre, int anchoX, int altoY, RecursosEdificio recursos, EscenaCombate escena) {
+		super(nombre, anchoX, altoY, recursos.colorColisionador(), escena);
 		this.recursos = recursos;
 		iconoEdificio = new JObjetoIcono(nombre + ".icono", recursos.icono(), 1);
 		Animacion animacion = recursos.animacion();
@@ -37,7 +35,6 @@ public abstract class Edificio extends EntidadFaccion implements IVidaControlada
 		int despAdornoX = (anchoX - iconoEdificio.anchoX()) / 2;
 		int despAdornoY = (altoY - iconoEdificio.altoY()) / 2;
 		adornoAnhade(iconoEdificio, despAdornoX, despAdornoY);
-		asignaZ(INDICE_Z);
 	}
 	
 	@Override

@@ -9,7 +9,7 @@ import juegoMedieval.utils.UtilsDepuracion;
  * Choza que genera duendes periodicamente.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public class ChozaDuende extends Edificio implements ITemporizado {
 
@@ -32,8 +32,8 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 	private Temporizador generadorDuendes = 
 			new Temporizador(TIEMPO_PRIMERA_GENERACION_MS, this);
 	
-	public ChozaDuende() {
-		super(null, ANCHURA, ALTURA, RECURSOS);
+	public ChozaDuende(EscenaCombate escena) {
+		super(null, ANCHURA, ALTURA, RECURSOS, escena);
 		setControladorVida(new ControladorVida(SALUD_BASE, this));
 		generadorDuendes.iniciaCuenta();
 	}
@@ -49,7 +49,7 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 			return;
 		}
 		EscenaCombate escena = (EscenaCombate) escena();
-		escena.incluyeObj(new DuendePiromano(),
+		escena.incluyeObj(new DuendePiromano(escena),
 				x() + ANCHURA, y() + ALTURA - DuendePiromano.ALTURA);
 		duendesDentro--;
 		

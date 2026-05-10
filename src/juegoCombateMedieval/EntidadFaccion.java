@@ -2,7 +2,6 @@ package juegoCombateMedieval;
 
 import java.awt.Color;
 
-import j2d.JEscena;
 import j2d.JObjeto;
 import j2d.JObjetoRectangulo;
 import j2d.mods.ControladorVida;
@@ -11,14 +10,17 @@ import j2d.mods.ControladorVida;
  * Representa a una entidad que pertenece a una {@link Faccion}.
  * 
  * @author Oscar Gonzalez Garcia
- * @version ago-2025
+ * @version may-2026
  */
 public abstract class EntidadFaccion extends JObjetoRectangulo {
 
 	private ControladorVida controladorVida = null;
+	private final EscenaCombate escena;
 	
-	protected EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador) {
+	protected EntidadFaccion(String nombre, int anchoX, int altoY, Color colorColisionador, EscenaCombate escena) {
 		super(nombre, anchoX, altoY, colorColisionador);
+		this.escena = escena;
+		escena.registraEntidad(this);
 		asignaFactorGravedad(0);
 	}
 	
@@ -59,6 +61,7 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	public void muere() {
 		colisionador().desactiva();
 		asignaVel(0, 0);
+		escena.borraEntidad(this);
 	}
 	
 	/**
@@ -67,19 +70,5 @@ public abstract class EntidadFaccion extends JObjetoRectangulo {
 	 */
 	public boolean estaMuerto() {
 		return controladorVida.numVidasRestantes() <= 0;
-	}
-	
-	@Override
-	public void objetoIncluido() {
-		if (escena() instanceof EscenaCombate escenaCombate) {
-			escenaCombate.registraEntidad(this);
-		}
-	}
-	
-	@Override
-	public void objetoEliminado(JEscena escena) {
-		if (escena instanceof EscenaCombate escenaCombate) {
-			escenaCombate.borraEntidad(this);
-		}
 	}
 }
