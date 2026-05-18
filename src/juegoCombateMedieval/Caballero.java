@@ -106,4 +106,8 @@ public class Caballero extends AtacanteMele implements IGuiadoPorRaton {
 	public RecursosPersonaje getRecursosPersonaje() {
 		return RECURSOS;
 	}
+
+	public GuiaPorRaton getGuiaRaton() {
+		return guiaRaton;
+	}
 }
