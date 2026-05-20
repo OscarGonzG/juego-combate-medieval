@@ -27,8 +27,9 @@ public class EscenaCombate extends JEscena {
 	public void entraEscena() {
 		poneTexturaFondo(ImagenesUtils.creaImagen("resources/terrain/flat/green_middle.png"), 1);
 		asignaGravedad(1);
-		
-		incluyeObj(new ChozaDuende(this), 50, 50);
+		ChozaDuende choza = new ChozaDuende(this);
+		incluyeObj(choza, 50, 50);
+		choza.iniciaGeneracion();
 		
 		Caballero jugador = new Caballero("jugador", this);
 		incluyeObj(jugador, Juego.anchoPixelsX() / 2, Juego.altoPixelsY() / 2);

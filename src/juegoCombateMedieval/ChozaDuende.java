@@ -35,6 +35,12 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 	public ChozaDuende(EscenaCombate escena) {
 		super(null, ANCHURA, ALTURA, RECURSOS, escena);
 		setControladorVida(new ControladorVida(SALUD_BASE, this));
+	}
+
+	/**
+	 * Permite que la choza comience a generar duendes.
+	 */
+	public void iniciaGeneracion() {
 		generadorDuendes.iniciaCuenta();
 	}
 
@@ -43,18 +49,37 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 		return Faccion.DUENDES;
 	}
 
-	@Override
-	public void finTiempo(Temporizador temporizador) {
-		if (estaMuerto()) {
+	/**
+	 * Si quedan duendes, genera uno en la puerta de la choza y decrementa el
+	 * contador de duendes dentro.
+	 */
+	protected void generaDuende() {
+		if (duendesDentro <= 0) {
 			return;
 		}
 		EscenaCombate escena = (EscenaCombate) escena();
 		escena.incluyeObj(new DuendePiromano(escena),
 				x() + ANCHURA, y() + ALTURA - DuendePiromano.ALTURA);
 		duendesDentro--;
+	}
+
+	@Override
+	public void finTiempo(Temporizador temporizador) {
+		if (estaMuerto()) {
+			return;
+		}
+		generaDuende();
 		
 		if (duendesDentro > 0) {
 			temporizador.iniciaCuenta(TIEMPO_GENERACION_MS);
 		}
+	}
+
+	/**
+	 * Devuelve el numero de duendes que quedan en la choza.
+	 * @return el numero de duendes que quedan en la choza.
+	 */
+	public int getNumDuendesDentro() {
+		return duendesDentro;
 	}
 }
