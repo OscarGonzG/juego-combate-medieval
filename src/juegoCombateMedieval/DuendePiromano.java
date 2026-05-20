@@ -46,12 +46,12 @@ public class DuendePiromano extends AtacanteMele {
 	@Override
 	public void ciclo() {
 		GuiaObjeto guia = guia();
-		objetivo = (Personaje) escena().buscaObj("jugador");
+		objetivo = ((EscenaCombate)escena()).enemigoMasCercano(centro(), getFaccion());
 		super.ciclo();
 		if (!estaMuerto() && objetivo != null && !objetivo.estaMuerto() && !ataqueEnCurso()) {
 			
 				
-			if (objetivo == null || ((Personaje) objetivo).estaMuerto()) {
+			if (objetivo == null || objetivo.estaMuerto()) {
 					return;
 			}
 				

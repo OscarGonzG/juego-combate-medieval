@@ -2,6 +2,7 @@ package juegoCombateMedieval;
 
 
 
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -70,5 +71,25 @@ public class EscenaCombate extends JEscena {
 	 */
 	public void borraEntidad(EntidadFaccion e) {
 		entidades.remove(e);
+	}
+
+	/**
+	 * Busca la entidad enemiga mas cercana.
+	 * @param pos posicion desde la que buscar.
+	 * @param faccion faccion cuyos enemigos hay que buscar.
+	 * @return la entidad enemiga mas cercana o {@code null} si no hay enemigos.
+	 */
+	public EntidadFaccion enemigoMasCercano(Point pos, Faccion faccion) {
+		EntidadFaccion enemigo = null;
+
+		for (EntidadFaccion e : entidades) {
+			if (e.getFaccion() != faccion) {
+				if (enemigo == null ||
+						enemigo.centro().distance(pos) > e.centro().distance(pos)) {
+					enemigo = e;
+				}
+			}
+		}
+		return enemigo;
 	}
 }
