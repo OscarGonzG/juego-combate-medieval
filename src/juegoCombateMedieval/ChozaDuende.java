@@ -48,6 +48,14 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 	public Faccion getFaccion() {
 		return Faccion.DUENDES;
 	}
+	
+	/**
+	 * Crea el objeto que la choza genera.
+	 * @return una instancia del personaje que la choza incluye en la escena.
+	 */
+	protected Personaje creaDuende() {
+		return new DuendePiromano((EscenaCombate) escena());
+	}
 
 	/**
 	 * Si quedan duendes, genera uno en la puerta de la choza y decrementa el
@@ -57,9 +65,9 @@ public class ChozaDuende extends Edificio implements ITemporizado {
 		if (duendesDentro <= 0) {
 			return;
 		}
-		EscenaCombate escena = (EscenaCombate) escena();
-		escena.incluyeObj(new DuendePiromano(escena),
-				x() + ANCHURA, y() + ALTURA - DuendePiromano.ALTURA);
+		Personaje duende = creaDuende();
+		escena().incluyeObj(duende,
+				x() + ANCHURA, y() + ALTURA - duende.altoY());
 		duendesDentro--;
 	}
 
