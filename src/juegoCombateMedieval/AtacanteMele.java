@@ -47,4 +47,12 @@ public abstract class AtacanteMele extends Personaje {
 		return true;
 	}
 	
+	/**
+	 * Realiza un ataque sin hacer danho.
+	 * @return {@code true} si ha podido realizar el ataque, {@code false} en
+	 * caso contrario.
+	 */
+	public boolean atacaSinDanho() {
+		return super.ataca();
+	}
 }
