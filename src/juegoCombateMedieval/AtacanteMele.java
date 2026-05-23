@@ -32,7 +32,7 @@ public abstract class AtacanteMele extends Personaje {
 	}
 
 	@Override
-	protected boolean ataca() {
+	public boolean ataca() {
 		if (!super.ataca()) {
 			return false;
 		}

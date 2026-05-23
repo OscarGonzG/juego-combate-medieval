@@ -202,7 +202,7 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 	 * Realiza un ataque.
 	 * @return true si ha podido iniciar el ataque, false en caso contrario.
 	 */
-	protected boolean ataca() {
+	public boolean ataca() {
 		if (cambiaAccion(Accion.ATACANDO)) {
 			puedeAtacar = false;
 			return true;
