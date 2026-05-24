@@ -164,10 +164,9 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 	
 	/**
 	 * Se encarga de cambiar la accion ejecutada y la direccion a la que apunta
-	 * el personaje en funcion de su velocidad.
+	 * el personaje en funcion de su velocidad. Es llamado por {@link #ciclo()}.
 	 */
-	@Override
-	public void ciclo() {
+	protected void actualizaEstado() {
 		if (!estaMuerto()) {
 			float velX = velX();
 			float velY = velY();		
@@ -194,7 +193,23 @@ public abstract class Personaje extends EntidadFaccion implements ITemporizado {
 				}
 				cambiaDireccion(direccionPrincipal, direccionSecundaria);
 			}
-		}
+		}		
+	}
+	
+	/**
+	 * Define el comportamiento del personaje. Es llamado por {@link #ciclo()}.
+	 */
+	protected void cicloComportamiento() {
+	}
+	
+	/**
+	 * Llama a los metodos {@link #cicloComportamiento()} y
+	 * {@link #actualizaEstado()}.
+	 */
+	@Override
+	public void ciclo() {
+		cicloComportamiento();
+		actualizaEstado();
 	}
 
 	

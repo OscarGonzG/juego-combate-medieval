@@ -38,16 +38,15 @@ public class DuendePiromano extends AtacanteMele {
 	public Faccion getFaccion() {
 		return Faccion.DUENDES;
 	}
-
+	
 	/**
-	 * {@inheritDoc}. Para el {@link DuendePiromano}, busca a un objetivo que
+	 * {@inheritDoc} Para el {@link DuendePiromano}, busca a un objetivo que
 	 * perseguir, se dirige a el, y lo ataca cuando esta cerca.
 	 */
 	@Override
-	public void ciclo() {
+	protected void cicloComportamiento() {
 		GuiaObjeto guia = guia();
 		objetivo = ((EscenaCombate)escena()).enemigoMasCercano(centro(), getFaccion());
-		super.ciclo();
 		if (!estaMuerto() && objetivo != null && !objetivo.estaMuerto() && !ataqueEnCurso()) {
 			
 				
