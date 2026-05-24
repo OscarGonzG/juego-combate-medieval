@@ -7,8 +7,11 @@ import juegoCombateMedieval.Faccion;
 
 public class CaballeroMultijugador extends Caballero {
 
+	private ControladorPersonajeRed controladorRed;
+
 	public CaballeroMultijugador(String nombre, EscenaCombate escena) {
 		super(nombre, escena);
+		this.controladorRed = new ControladorPersonajeRed(this);
 		// Permitir el control local de la guia hace que el caballero se
 		// teletransporte ligeramente hacia atras cuando empiezan a llegar
 		// actualizaciones de posicion del servidor
@@ -30,5 +33,15 @@ public class CaballeroMultijugador extends Caballero {
 		} else {
 			return super.ataca();
 		}
+	}
+
+	/**
+	 * {@inheritDoc} Tambien sincroniza a traves de la red variables del
+	 * {@code CaballeroMultijugador}.
+	 */
+	@Override
+	public void ciclo() {
+		super.ciclo();
+		controladorRed.ciclo();
 	}
 }

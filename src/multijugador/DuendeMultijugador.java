@@ -6,14 +6,16 @@ import juegoCombateMedieval.EscenaCombate;
 
 public class DuendeMultijugador extends DuendePiromano {
 	
+	private ControladorPersonajeRed controladorRed;
 	
 	/**
-	 * Crea un duende 
+	 * Crea un duende.
 	 * @param escena
-	 * @param nombreChoza
+	 * @param nombreControlador nombre de su {@link ControladorPersonajeRed}.
 	 */
-	public DuendeMultijugador(EscenaCombate escena) {
+	public DuendeMultijugador(EscenaCombate escena, String nombreControlador) {
 		super(escena);
+		controladorRed = new ControladorPersonajeRed(this, nombreControlador);
 	}
 
 	@Override
@@ -29,5 +31,15 @@ public class DuendeMultijugador extends DuendePiromano {
 	protected void cicloComportamiento() {
 		if (Juego.esCliente()) return;
 		super.cicloComportamiento();
+	}
+
+	/**
+	 * {@inheritDoc} Tambien sincroniza a traves de la red variables del
+	 * {@code DuendeMultijugador}.
+	 */
+	@Override
+	public void ciclo() {
+		super.ciclo();
+		controladorRed.ciclo();
 	}
 }

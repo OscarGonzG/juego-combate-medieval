@@ -1,7 +1,5 @@
 package multijugador;
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 
 import j2d.Juego;
 import j2d.mods.multijugador.IReceptorEventosRed;
@@ -10,7 +8,6 @@ import juegoCombateMedieval.EscenaCombate;
 
 public class EscenaMultijugador extends EscenaCombate {
 
-	private List<ControladorPersonajeRed> controladores = new ArrayList<>();
 	private ChozaMultijugador choza;
 
 	@Override
@@ -29,7 +26,6 @@ public class EscenaMultijugador extends EscenaCombate {
 							incluyeObjCentrado(jugadorRemoto,
 									new Point(Juego.anchoPixelsX()/2,
 											Juego.altoPixelsY()/2));
-							controladores.add(new ControladorPersonajeRed(jugadorRemoto));
 							controladoRatonRedAnhade(jugadorRemoto.getGuiaRaton(),numJugador);
 						}
 					}
@@ -37,7 +33,7 @@ public class EscenaMultijugador extends EscenaCombate {
 
 				if (Juego.esServidor() ||
 						Juego.gestorMultijugador().idJugador() == numJugador) {
-					choza = new ChozaMultijugador(EscenaMultijugador.this);
+					choza = new ChozaMultijugador(EscenaMultijugador.this, "choza");
 					incluyeObj(choza, new Point(30, 30));
 					if (Juego.esServidor()) {
 						choza.iniciaGeneracion();
@@ -46,15 +42,9 @@ public class EscenaMultijugador extends EscenaCombate {
 				
 				CaballeroMultijugador caballero = new CaballeroMultijugador("caballero" + numJugador, EscenaMultijugador.this);
 				incluyeObjCentrado(caballero, new Point(Juego.anchoPixelsX()/2, Juego.altoPixelsY()/2));
-				controladores.add(new ControladorPersonajeRed(caballero));
 
 				controladoRatonRedAnhade(caballero.getGuiaRaton(), numJugador);
 			}
 		});
-	}
-
-	@Override
-	public void ciclo() {
-		controladores.forEach(c -> c.ciclo());
 	}
 }
