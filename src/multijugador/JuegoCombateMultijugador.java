@@ -35,6 +35,7 @@ public class JuegoCombateMultijugador {
 			e.printStackTrace();
 			System.out.println(-1);
 		}
+		
 		Juego.asignaNombre("Juego de combate medieval");
 		inicializaSerializadores();
 		
