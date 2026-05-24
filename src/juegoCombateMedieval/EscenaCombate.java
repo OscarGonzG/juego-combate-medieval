@@ -23,11 +23,13 @@ public class EscenaCombate extends JEscena {
 	
 	private Set<EntidadFaccion> entidades = new LinkedHashSet<>();
 	
+	public EscenaCombate() {
+		asignaGravedad(1);
+	}
 	
 	@Override
 	public void entraEscena() {
 		poneTexturaFondo(ImagenesUtils.creaImagen("resources/terrain/flat/green_middle.png"), 1);
-		asignaGravedad(1);
 		ChozaDuende choza = new ChozaDuende(this);
 		incluyeObj(choza, 50, 50);
 		choza.iniciaGeneracion();
