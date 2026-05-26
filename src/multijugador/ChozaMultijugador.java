@@ -13,8 +13,7 @@ import juegoCombateMedieval.Personaje;
 public class ChozaMultijugador extends ChozaDuende {
 
 	private ControladorEdificioRed controladorRed;
-	private VariableRed<Integer> duendesRestantes =
-			Juego.nuevaVariableRed(Integer.class, nombre() + ".duendesGenerados", 4);
+	private final VariableRed<Integer> duendesRestantes;
 	private List<ControladorPersonajeRed> controladoresPersonaje = new ArrayList<>();
 	
 	/**
@@ -24,7 +23,9 @@ public class ChozaMultijugador extends ChozaDuende {
 	 */
 	public ChozaMultijugador(EscenaCombate escena, String nombreControlador) {
 		super(escena);
-		controladorRed = new ControladorEdificioRed(this, nombre());
+		controladorRed = new ControladorEdificioRed(this, nombreControlador);
+		duendesRestantes =
+				Juego.nuevaVariableRed(Integer.class, nombreControlador + ".duendesGenerados", 4);
 		duendesRestantes.anhadeSuscriptor(var -> {
 			// el if evita que la llegada del valor inicial genere un duende
 			if (getNumDuendesDentro() != var.valor()) {
