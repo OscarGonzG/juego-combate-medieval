@@ -12,20 +12,20 @@ import juegoCombateMedieval.Personaje;
 
 public class ChozaMultijugador extends ChozaDuende {
 
-	private ControladorEdificioRed controladorRed;
+	private SincronizadorVida sincronizadorVida;
 	private final VariableRed<Integer> duendesRestantes;
-	private List<ControladorPersonajeRed> controladoresPersonaje = new ArrayList<>();
+	private List<SincronizadorPersonaje> controladoresPersonaje = new ArrayList<>();
 	
 	/**
 	 * Crea una choza de duendes.
 	 * @param escena
-	 * @param nombreControlador nombre del {@link ControladorEdificioRed}
+	 * @param nombreSincronizador nombre del {@link SincronizadorVida}
 	 */
-	public ChozaMultijugador(EscenaCombate escena, String nombreControlador) {
+	public ChozaMultijugador(EscenaCombate escena, String nombreSincronizador) {
 		super(escena);
-		controladorRed = new ControladorEdificioRed(this, nombreControlador);
+		sincronizadorVida = new SincronizadorVida(getControladorVida(), nombreSincronizador);
 		duendesRestantes =
-				Juego.nuevaVariableRed(Integer.class, nombreControlador + ".duendesGenerados", 4);
+				Juego.nuevaVariableRed(Integer.class, nombreSincronizador + ".duendesGenerados", 4);
 		duendesRestantes.anhadeSuscriptor(var -> {
 			// el if evita que la llegada del valor inicial genere un duende
 			if (getNumDuendesDentro() != var.valor()) {
@@ -39,7 +39,7 @@ public class ChozaMultijugador extends ChozaDuende {
 		DuendeMultijugador duende = new DuendeMultijugador(
 				(EscenaCombate)escena(),
 				"duende" + getNumDuendesDentro());
-		controladoresPersonaje.add(new ControladorPersonajeRed(duende,
+		controladoresPersonaje.add(new SincronizadorPersonaje(duende,
 				nombre() + getNumDuendesDentro()));
 		return duende;
 	}
@@ -53,6 +53,6 @@ public class ChozaMultijugador extends ChozaDuende {
 	@Override
 	public void ciclo() {
 		controladoresPersonaje.forEach(c -> c.ciclo());
-		controladorRed.ciclo();
+		sincronizadorVida.ciclo();
 	}
 }

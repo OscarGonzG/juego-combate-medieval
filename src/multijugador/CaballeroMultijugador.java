@@ -7,11 +7,13 @@ import juegoCombateMedieval.Faccion;
 
 public class CaballeroMultijugador extends Caballero {
 
-	private ControladorPersonajeRed controladorRed;
+	private SincronizadorPersonaje sincronizadorPersonaje;
+	private SincronizadorVida sincronizadorVida;
 
 	public CaballeroMultijugador(String nombre, EscenaCombate escena) {
 		super(nombre, escena);
-		this.controladorRed = new ControladorPersonajeRed(this);
+		this.sincronizadorPersonaje = new SincronizadorPersonaje(this);
+		this.sincronizadorVida = new SincronizadorVida(getControladorVida(), nombre);
 		// Permitir el control local de la guia hace que el caballero se
 		// teletransporte ligeramente hacia atras cuando empiezan a llegar
 		// actualizaciones de posicion del servidor
@@ -42,6 +44,7 @@ public class CaballeroMultijugador extends Caballero {
 	@Override
 	public void ciclo() {
 		super.ciclo();
-		controladorRed.ciclo();
+		sincronizadorPersonaje.ciclo();
+		sincronizadorVida.ciclo();
 	}
 }
