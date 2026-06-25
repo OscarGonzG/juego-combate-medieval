@@ -14,7 +14,7 @@ public class EscenaMultijugador extends EscenaCombate {
 	public void entraEscena() {
 		poneTexturaFondo(ImagenesUtils.creaImagen("resources/terrain/flat/green_middle.png"), 1);
 
-		Juego.gestorMultijugador().anhadeReceptorEventos(new IReceptorEventosRed() {
+		Juego.anhadeReceptorEventosRed(new IReceptorEventosRed() {
 			@Override
 			public void jugadorUnido(int numJugador) {
 				if (Juego.esCliente()) {

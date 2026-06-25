@@ -86,8 +86,8 @@ public class EscenaCombate extends JEscena {
 
 		for (EntidadFaccion e : entidades) {
 			if (e.getFaccion() != faccion) {
-				if (enemigo == null ||
-						enemigo.centro().distance(pos) > e.centro().distance(pos)) {
+				if (!e.estaMuerto() && (enemigo == null ||
+						enemigo.centro().distance(pos) > e.centro().distance(pos))) {
 					enemigo = e;
 				}
 			}

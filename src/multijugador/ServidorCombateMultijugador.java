@@ -16,7 +16,6 @@ public class ServidorCombateMultijugador {
 			System.out.println(-1);
 		}
 		Juego.asignaNombre("Servidor de combate medieval");
-		JuegoCombateMultijugador.inicializaSerializadores();
 		
 		Juego.anhadeEscena(new EscenaMultijugador());
 		Juego.jugar();
