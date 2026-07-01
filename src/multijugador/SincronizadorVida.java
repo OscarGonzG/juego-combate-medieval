@@ -18,18 +18,20 @@ public class SincronizadorVida {
 	
 	/**
 	 * Construye un sincronizador de vida.
-	 * @param controlado objeto controlado.
+	 * @param sincronizado {@link ControladorVida} sincronizado.
 	 * @param nombre nombre del sincronizador.
 	 */
-	public SincronizadorVida(ControladorVida controlado, String nombre) {
-		this.controlador = controlado;
+	public SincronizadorVida(ControladorVida sincronizado, String nombre) {
+		this.controlador = sincronizado;
 		
 		salud = Juego.nuevaVariableRed(Float.class,
 				nombre + ".vida",
-				controlado.vidaRestante());
+				sincronizado.vidaRestante());
 		salud.anhadeSuscriptor(var -> {
-			float vidaRestante = controlado.vidaRestante();
-			controlado.quitaVida(vidaRestante - var.valor());
+			float vidaRestante = sincronizado.vidaRestante();
+			if (sincronizado.vidaRestante() != var.valor()) {
+				sincronizado.quitaVida(vidaRestante - var.valor());
+			}
 		});
 	}
 
