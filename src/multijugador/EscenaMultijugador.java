@@ -31,8 +31,9 @@ public class EscenaMultijugador extends EscenaCombate {
 					}
 				}
 
-				if (Juego.esServidor() && numJugador == 1 ||
-						Juego.gestorMultijugador().idJugador() == numJugador) {
+				if (Juego.esServidor()
+						&& numJugador == ServidorCombateMultijugador.NUM_JUGADORES -1
+						|| Juego.gestorMultijugador().idJugador() == numJugador) {
 					choza = new ChozaMultijugador(EscenaMultijugador.this, "choza");
 					incluyeObj(choza, new Point(30, 30));
 					if (Juego.esServidor()) {
